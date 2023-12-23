@@ -89,6 +89,8 @@
     <Compile Include="ViewModels\ViewModel_Customer.cs" />
     <Compile Include="ViewModels\ViewModel_Executor.cs" />
     <Compile Include="ViewModels\ViewModel_Login_Reg.cs" />
+    <Compile Include="ViewModels\ViewModel_Order.cs" />
+    <Compile Include="ViewModels\ViewModel_Service.cs" />
     <Compile Include="Views\Login_Reg_Window.xaml.cs">
       <DependentUpon>Login_Reg_Window.xaml</DependentUpon>
     </Compile>
@@ -168,7 +170,9 @@
   <ItemGroup>
     <Resource Include="Images\fon_customer.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Images\Own_Logo.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

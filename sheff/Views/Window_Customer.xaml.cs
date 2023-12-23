@@ -19,15 +19,6 @@ namespace sheff.Views
             loginViewModel = new ViewModel_Customer(this, orderService);
             this.DataContext = loginViewModel;
         }
-        private void HistoryGrid_Loaded(object sender, RoutedEventArgs e)
-        {
-            // Установим ItemsSource после загрузки окна
-            if (sender is DataGrid dataGrid)
-            {
-                dataGrid.ItemsSource = loginViewModel.OrdersForHistories;
-            }
-        }
-
 
     }
 }
