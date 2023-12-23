@@ -102,7 +102,7 @@
                                 <TextBlock
 		                          Margin="0"
 		                          Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
-		                          Text="E.T. the Extra-Terrestrial" />
+		                          Text="Заказчик" />
 
                                 <Viewbox
 		                            Height="16"
