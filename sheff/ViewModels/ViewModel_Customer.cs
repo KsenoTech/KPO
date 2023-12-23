@@ -54,13 +54,50 @@ namespace sheff.ViewModels
             }
         }
 
-        private string _description;
-        public string Description
+        //private string _description;
+        //public string Description
+        //{
+        //    get => _description;
+        //    set
+        //    {
+        //        if (!Set(ref _description, value)) return;
+        //    }
+        //}
+
+        private int _general_Budget;
+        public int General_Budget 
         {
-            get => _description;
+            get => _general_Budget;
             set
             {
-                if (!Set(ref _description, value)) return;
+                if (!Set(ref _general_Budget, value)) return;
+            }
+        }
+
+        private int _progress;
+        public int Progress
+        {
+            get => _progress;
+            set
+            {
+                if (!Set(ref _progress, value)) return;
+            }
+        }
+        private bool _isItFinished;
+        public bool IsItFinished
+        {
+            get => _isItFinished;
+            set
+            {
+                if (!Set(ref _isItFinished, value)) return;
+            }
+        }
+        private bool _canIdoIt;
+        public bool CanIdiIt {
+            get => _canIdoIt;
+            set
+            {
+                if (!Set(ref _canIdoIt, value)) return;
             }
         }
 

@@ -311,15 +311,14 @@
                 </TabItem.Header>
 
                 <Grid>
-                    <DataGrid   x:Name="InProgressGrid_Customer" ItemsSource="{Binding OrdersInProgress, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-
+                    <DataGrid   x:Name="InProgressGrid_Customer" ItemsSource="{Binding OrdersInProgress, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False">
                         <DataGrid.Columns>
                             <!--<DataGridTextColumn Binding="{Binding Id}" Header="№" Width="30"/>-->
-                            <!--<DataGridTextColumn Binding="{Binding Description}" Header="Описание" Width="70"/>-->
-                            <!--<DataGridTextColumn Binding="{Binding Name_Executor}" Header="Имя исполнителя" Width="70"/>
-                            <DataGridTextColumn Binding="{Binding Empphonenumber}" Header="Телефон" Width="100"/>
-                            <DataGridTextColumn Binding="{Binding Empaddress}" Header="Адрес ремонта" Width="130"/>
-                            <DataGridTextColumn Binding="{Binding Total_cost}" Header="Итоговая стоимость" Width="70"/>-->
+                            <DataGridTextColumn Binding="{Binding description}" Header="Описание" Width="70"/>
+                            <DataGridTextColumn Binding="{Binding progress}" Header="Прогресс" Width="70"/>
+                            <DataGridTextColumn Binding="{Binding IsItFinished}" Header="Закончен?" Width="100"/>
+                            <DataGridTextColumn Binding="{Binding canIdoIt}" Header="Взят ли мастером?" Width="130"/>
+                            <DataGridTextColumn Binding="{Binding general_budget}" Header="Итоговая стоимость" Width="70"/>
                         </DataGrid.Columns>
 
                         <!--<DataGridTemplateColumn Width="200">
@@ -345,15 +344,14 @@
                 </TabItem.Header>
 
                 <Grid>
-                    <DataGrid   x:Name="HistoryGrid_Customer" ItemsSource="{Binding OrdersForHistories, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-
+                    <DataGrid   x:Name="HistoryGrid_Customer" ItemsSource="{Binding OrdersForHistories, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False">
                         <DataGrid.Columns>
                             <!--<DataGridTextColumn Binding="{Binding Id}" Header="№" Width="30"/>-->
-                            <!--<DataGridTextColumn Binding="{Binding Description}" Header="Описание" Width="70"/>-->
-                            <!--<DataGridTextColumn Binding="{Binding Name_Executor}" Header="Имя исполнителя" Width="70"/>
-                            <DataGridTextColumn Binding="{Binding Empphonenumber}" Header="Телефон" Width="100"/>
-                            <DataGridTextColumn Binding="{Binding Empaddress}" Header="Адрес ремонта" Width="130"/>
-                            <DataGridTextColumn Binding="{Binding Total_cost}" Header="Итоговая стоимость" Width="70"/>-->
+                            <DataGridTextColumn Binding="{Binding description}" Header="Описание" Width="70"/>
+                            <DataGridTextColumn Binding="{Binding progress}" Header="Прогресс" Width="70"/>
+                            <DataGridTextColumn Binding="{Binding IsItFinished}" Header="Закончен?" Width="100"/>
+                            <DataGridTextColumn Binding="{Binding canIdoIt}" Header="Взят ли мастером?" Width="130"/>
+                            <DataGridTextColumn Binding="{Binding general_budget}" Header="Итоговая стоимость" Width="70"/>
                         </DataGrid.Columns>
 
                         <!--<DataGridTemplateColumn Width="200">
@@ -365,6 +363,7 @@
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>-->
                     </DataGrid>
+                    
                     <Button Content="Button" HorizontalAlignment="Left" Command="{Binding HistoryCommand}"
                             Margin="693,250,0,0" VerticalAlignment="Top" Width="107"/>
                 </Grid>

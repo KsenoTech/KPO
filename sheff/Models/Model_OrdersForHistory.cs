@@ -10,8 +10,11 @@ namespace sheff.Models
     {
         public int Id { get; set; }
         public string description { get; set; }
-       // public DateTime time_order { get; set; }
-        //public int general_budget { get; set; }
+        public DateTime time_order { get; set; }
+        public int general_budget { get; set; }
+        public int progress { get; set; }
+        public bool IsItFinished { get; set; }
+        public bool canIdoIt { get; set; }
         //public string OrderedExecutors { get; set; }
         //public List<int> OrderedExecutorIDs { get; set; }
         //public string OrderedService { get; set; }
@@ -21,8 +24,11 @@ namespace sheff.Models
         {
             Id = order.Id;
             description = order.description;
-           //time_order = order.time_order;
-           //general_budget = order.general_budget;
+            time_order = order.time_order;
+            general_budget = order.general_budget;
+            progress = order.progress;
+            IsItFinished = order.IsItFinished;
+            canIdoIt = order.canIdoIt;
             
         }
     }
