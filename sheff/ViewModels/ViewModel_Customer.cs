@@ -18,6 +18,7 @@ namespace sheff.ViewModels
 {
     public class ViewModel_Customer : ViewModel
     {
+
         public ViewModel_Order SubVM_Order { get; set; }
 
         public ViewModel_Customer()
@@ -94,6 +95,16 @@ namespace sheff.ViewModels
                 if (!Set(ref _ordersForHistory, value)) return;
             }
         }
+        private void SearchFinishedOrders(object obj)
+        {
+
+            OrdersForHistories = ConvertDataOrderView(_orderService.GetFinishedOrders());
+        }
+
+        private List<Model_OrdersForHistory> ConvertDataOrderView(List<OrderDTO> orders)
+        {
+            return orders.Select(i => new Model_OrdersForHistory(i)).ToList();
+        }
 
         public ViewModel_Customer(Window_Customer thisWindow, IOrderService orderService) 
         {
@@ -109,20 +120,7 @@ namespace sheff.ViewModels
 
         }
 
-        private void SearchFinishedOrders(object obj)
-        {
-            
-            OrdersForHistories = ConvertDataOrderView(_orderService.GetFinishedOrders());
-        }
-
-        private List<Model_OrdersForHistory> ConvertDataOrderView(List<OrderDTO> orders)
-        {
-            return orders.Select(i => new Model_OrdersForHistory(i)).ToList();
-        }
-
-
-
-
+     
         private DateTime _selectedDate;
         public DateTime SelectedDate
         {

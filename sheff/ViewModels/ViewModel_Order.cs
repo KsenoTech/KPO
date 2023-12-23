@@ -28,13 +28,35 @@ namespace sheff.ViewModels
             }
         }
         private readonly IOrderService _orderService;
-        private readonly Window_Customer _wnd;
 
         public ViewModel_Order(IOrderService orderService)
         {
             _orderService = orderService;
             OrdersForHistories = new ObservableCollection<OrderDTO>(); // Используем ObservableCollection для автоматического обновления данных в DataGrid
             AddOrderCommand = new RelayCommand(AddOrder);
+
+            List<ViewModel_Service> servicesFromDatabase = GetDataFromDatabase();
+
+            _availableServices = servicesFromDatabase;
+
+            SelectedServices = new ObservableCollection<ViewModel_Service>();
+        }
+        private List<ViewModel_Service> GetDataFromDatabase()
+        {
+            // Здесь вам нужно выполнить операции для получения данных из базы данных
+            // Например, используя Entity Framework или другой механизм доступа к данным
+
+            // Пример:
+            // var dataFromDatabase = dbContext.Services.ToList();
+            // return dataFromDatabase.Select(service => new ViewModel_Service { /* инициализация свойств */ }).ToList();
+
+            // Замените этот код на реальные операции доступа к данным и инициализации объектов ViewModel_Service
+            return new List<ViewModel_Service>
+            {
+                new ViewModel_Service { Description = "Услуга 1", CostOfMeter = 100 },
+                new ViewModel_Service { Description = "Услуга 2", CostOfSquareMeter = 50 },
+                // Добавьте остальные объекты ViewModel_Service
+            };
         }
 
         public ObservableCollection<OrderDTO> OrdersForHistories { get; set; }
