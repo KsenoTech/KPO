@@ -173,6 +173,10 @@
   <ItemGroup>
     <Resource Include="Images\Own_Logo.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\client.png" />
+    <Resource Include="Images\execu.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

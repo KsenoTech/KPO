@@ -1,6 +1,5 @@
 ﻿
 using Interfaces.DTO;
-using Interfaces.Services;
 using Ninject;
 using Services;
 using sheff.Infrastructure.Commands;
@@ -9,9 +8,7 @@ using sheff.ViewModels.Base;
 using sheff.Views;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
-using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace sheff.ViewModels
@@ -43,64 +40,6 @@ namespace sheff.ViewModels
             loginRegWindow.Show();
             _wnd.Close();
         }
-
-        private int _id;
-        public int Id
-        {
-            get => _id;
-            set
-            {
-                if (!Set(ref _id, value)) return;
-            }
-        }
-
-        //private string _description;
-        //public string Description
-        //{
-        //    get => _description;
-        //    set
-        //    {
-        //        if (!Set(ref _description, value)) return;
-        //    }
-        //}
-
-        private int _general_Budget;
-        public int General_Budget 
-        {
-            get => _general_Budget;
-            set
-            {
-                if (!Set(ref _general_Budget, value)) return;
-            }
-        }
-
-        private int _progress;
-        public int Progress
-        {
-            get => _progress;
-            set
-            {
-                if (!Set(ref _progress, value)) return;
-            }
-        }
-        private bool _isItFinished;
-        public bool IsItFinished
-        {
-            get => _isItFinished;
-            set
-            {
-                if (!Set(ref _isItFinished, value)) return;
-            }
-        }
-        private bool _canIdoIt;
-        public bool CanIdiIt {
-            get => _canIdoIt;
-            set
-            {
-                if (!Set(ref _canIdoIt, value)) return;
-            }
-        }
-
 
         private ICommand _searchCommand;
         public ICommand Order_SearchCommand
@@ -136,8 +75,6 @@ namespace sheff.ViewModels
 
             OrdersForHistories = ConvertDataOrderView(_orderService.GetFinishedOrders());
         }
-
-
 
 
         private ICommand _inProgressCommand;

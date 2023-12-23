@@ -76,7 +76,7 @@
                             <!--DialogClosing="Sample1_DialogHost_OnDialogClosing"-->
                             <materialDesign:DialogHost.DialogContent>
                                 <StackPanel Margin="16">
-                                    <TextBlock Text="Add a new fruit." Foreground="Orange"/>
+                                    <TextBlock Text="Добавьте новую заметку." Foreground="Orange"/>
                                     <TextBox x:Name="FruitTextBox" Margin="0,8,0,0" HorizontalAlignment="Stretch" />
                                     <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
                                         <Button Margin="0,8,8,0"
@@ -192,18 +192,14 @@
                         <materialDesign:Card Grid.Column="1" Width="Auto" HorizontalAlignment="Stretch">
                             <Grid>
                                 <Grid.RowDefinitions>
-                                    <RowDefinition Height="140" />
-                                    <RowDefinition Height="*" />
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="2*"/>
+                                    <RowDefinition Height="3*"/>
+                                    <RowDefinition Height="Auto"/>
                                 </Grid.RowDefinitions>
 
-                                <!--<Image
-	                              Height="140"
-	                              Source="Resources/Contact.png"
-	                              Stretch="UniformToFill" />-->
+                                <Image
+	                              Source="\Images\client.png"
+	                              Stretch="Uniform" />
 
                                 <Button
 	                              Grid.Row="0"
@@ -211,88 +207,54 @@
 	                              HorizontalAlignment="Right"
 	                              VerticalAlignment="Bottom"
 	                              Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}">
-
-                                    <materialDesign:PackIcon Kind="ShareVariant" />
+                                    <materialDesign:PackIcon Kind="InsertPhoto" />
                                 </Button>
-                                <StackPanel
-	                              Grid.Row="1"
-	                              Margin="8,24,8,4">
-                                    <TextBlock
-		                          Margin="0"
-		                          Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
-		                          Text="Заказчик" />
+                                
+                                
+                                <StackPanel Grid.Row="1" Margin="8,20,8,0">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
+                                                   Text="Заказчик"/>
 
-                                    <Viewbox
-		                            Height="16"
-		                            Margin="0,4,0,8"
-		                            HorizontalAlignment="Left">
+                                        <Viewbox Height="16"
+                                             Margin="10,4,0,8"
+                                             HorizontalAlignment="Left">            
+                                                <materialDesign:RatingBar
+                                                Foreground="Red"
+                                                Orientation="Horizontal"
+                                                Value="4" />
+                                                <!--Value="{Binding rating}" />-->
+                                        </Viewbox>
+                                    </StackPanel>
 
-                                        <materialDesign:RatingBar
-		                              Margin="0"
-		                              Foreground="Gold"
-		                              Orientation="Horizontal"
-		                              Value="3" />
-                                    </Viewbox>
 
-                                    <TextBlock
-		                            VerticalAlignment="Center"
-		                            Style="{StaticResource MaterialDesignBody1TextBlock}"
-		                            Text="Тут надо данные о пользователе. БЛоком"
-		                            TextWrapping="Wrap" />
 
+                                    <TextBlock Text="Фамилия: " Foreground="Black"/>
+                                    <TextBlock Text="- " />
+
+                                    <TextBlock Text="Имя: " Foreground="Black"/>
+                                    <TextBlock Text="- " />
+
+                                    <TextBlock Text="Отчество: " Foreground="Black"/>
+                                    <TextBlock Text="- " />
+                                    
+                                    <TextBlock Text="E-Mail: " Foreground="Black"/>
+                                    <TextBlock Text="- " />
+
+                                    <TextBlock Text="Телефон: " Foreground="Black"/>
+                                    <TextBlock Text="- " />
+
+                                    <TextBlock Text="Адрес: " Foreground="Black"/>
+                                    <TextBlock Text="- " />
+                                    
+                                    <TextBlock Text="Логин: " Foreground="Black"/>
+                                    <TextBlock Text="- " />
+
+                                    <TextBlock Text="Пароль: " Foreground="Black"/>
+                                    <TextBlock Text="- " />
                                 </StackPanel>
 
-                                <Separator
-	                          Grid.Row="2"
-	                          Margin="8,0,8,0"
-	                          Style="{StaticResource MaterialDesignDarkSeparator}" />
-
-                                <TextBlock
-	                          Grid.Row="3"
-	                          Margin="8,4,8,4"
-	                          Style="{StaticResource MaterialDesignBody2TextBlock}"
-	                          Text="Tonight's availability" />
-
-                                <Grid Grid.Row="4">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto" />
-                                        <ColumnDefinition />
-                                    </Grid.ColumnDefinitions>
-
-                                    <ListBox
-		                            Grid.Column="1"
-		                            Margin="4,8,8,4"
-		                            SelectedIndex="0"
-		                            Style="{StaticResource MaterialDesignToolToggleFlatListBox}">
-                                        <ListBox.Resources>
-                                            <Style
-			                                    TargetType="{x:Type ListBoxItem}"
-			                                    BasedOn="{StaticResource MaterialDesignToolToggleListBoxItem}">
-                                                <Setter Property="Padding" Value="4,6,4,6" />
-                                            </Style>
-                                        </ListBox.Resources>
-                                        <ListBox.ToolTip>
-                                            <StackPanel>
-                                                <TextBlock Text="MaterialDesignFlatToggleListBox" />
-                                                <TextBlock Text="Exclusive selection" />
-                                                <TextBlock Text="ListBoxAssist.IsToggle allows more natural toggle behaviour" />
-                                            </StackPanel>
-                                        </ListBox.ToolTip>
-
-                                        <ListBoxItem>
-                                            <TextBlock Text="18:00" />
-                                        </ListBoxItem>
-
-                                        <ListBoxItem>
-                                            <TextBlock Text="19:00" />
-                                        </ListBoxItem>
-
-                                        <ListBoxItem>
-                                            <TextBlock Text="22:00" />
-                                        </ListBoxItem>
-                                    </ListBox>
-                                </Grid>
-                                <StackPanel Grid.Row="5">
+                                <StackPanel Grid.Row="3">
                                     <Button Content="Выход" Command="{Binding ExitFromAccauntCommandommand}" Style="{StaticResource MaterialDesignFlatButton}"/>
                                 </StackPanel>
                             </Grid>
