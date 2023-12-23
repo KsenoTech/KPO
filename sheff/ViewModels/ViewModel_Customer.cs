@@ -85,7 +85,6 @@ namespace sheff.ViewModels
                 if (!Set(ref _historyCommand, value)) return;
             }
         }
-
         private List<Model_OrdersForHistory> _ordersForHistory;
         public List<Model_OrdersForHistory> OrdersForHistories
         {
@@ -101,6 +100,34 @@ namespace sheff.ViewModels
             OrdersForHistories = ConvertDataOrderView(_orderService.GetFinishedOrders());
         }
 
+
+
+
+        private ICommand _inProgressCommand;
+        public ICommand InProgressCommand
+        {
+            get { return _inProgressCommand; }
+            set
+            {
+                if (!Set(ref _inProgressCommand, value)) return;
+            }
+        }
+        private List<Model_OrdersForHistory> _ordersInProgress;
+        public List<Model_OrdersForHistory> OrdersInProgress
+        {
+            get => _ordersInProgress;
+            set
+            {
+                if (!Set(ref _ordersInProgress, value)) return;
+            }
+        }
+        private void SearchInProgressOrders(object obj)
+        {
+
+            OrdersInProgress = ConvertDataOrderView(_orderService.GetInProgressOrders());
+        }
+
+
         private List<Model_OrdersForHistory> ConvertDataOrderView(List<OrderDTO> orders)
         {
             return orders.Select(i => new Model_OrdersForHistory(i)).ToList();
@@ -110,6 +137,7 @@ namespace sheff.ViewModels
         {
             _orderService = orderService;
             HistoryCommand = new RelayCommand(SearchFinishedOrders);
+            InProgressCommand = new RelayCommand(SearchInProgressOrders);
             //_ordersForHistory = ConvertDataOrderView(_orderService.GetFinishedOrders());
             _wnd = thisWindow;
 
@@ -120,7 +148,8 @@ namespace sheff.ViewModels
 
         }
 
-     
+        #region CALENDAR
+
         private DateTime _selectedDate;
         public DateTime SelectedDate
         {
@@ -176,7 +205,7 @@ namespace sheff.ViewModels
                 }
             }
         }
-
+        #endregion
 
     }
 }

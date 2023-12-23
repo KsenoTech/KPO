@@ -23,13 +23,13 @@ namespace BLL.Services
             decimal sum = 0;
             foreach (var pId in orderDto.OrderedServiceIDs)
             {
-                Type_of_service phone = db.TServices.GetItem(pId);
+                Type_of_service tService = db.TServices.GetItem(pId);
                 // валидация
-                if (phone == null)
+                if (tService == null)
                     throw new ArgumentNullException("Услуга не найдена. Сорян");
-                sum += (decimal)phone.cost_of_m2;
-                sum += (decimal)phone.cost_of_m;
-                orderedServices.Add(phone);
+                sum += (decimal)tService.cost_of_m2;
+                sum += (decimal)tService.cost_of_m;
+                orderedServices.Add(tService);
             }
             // применяем скидку
             //sum = new Discount(0.1m).GetDiscountedPrice(sum);
@@ -87,7 +87,13 @@ namespace BLL.Services
 
         public List<OrderDTO> GetFinishedOrders()
         {
-           return db.Orders.GetList().Where(order => order.executionCondition == false).Select(i => new OrderDTO(i)).ToList();
+           return db.Orders.GetList().Where(order => order.IsItFinished == true && order.progress == 100).Select(i => new OrderDTO(i)).ToList();
+        }
+
+        
+        public List<OrderDTO> GetInProgressOrders()
+        {
+            return db.Orders.GetList().Where(order => order.progress >= 0 && order.IsItFinished == false && order.canIdoIt == true).Select(i => new OrderDTO(i)).ToList();
         }
     }
 }

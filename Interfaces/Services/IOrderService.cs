@@ -16,6 +16,7 @@ namespace Services
         /// <param name="openOrCloseID"></param>
         /// <returns></returns>
         List<OrderDTO> GetFinishedOrders();
+        List<OrderDTO> GetInProgressOrders();
         OrderDTO MakeOrder(OrderDTO p);
         OrderDTO GetOrder(int orderrId);
           //void CreateOrderr(OrderrDTO p);

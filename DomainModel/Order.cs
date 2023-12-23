@@ -20,9 +20,11 @@ namespace DomainModel
         public DateTime time_order { get; set; }
 
         public int general_budget { get; set; }
+        public int progress { get; set; }
 
         public int feedback_ID { get; set; }
-        public bool executionCondition { get; set; }
+        public bool IsItFinished { get; set; }
+        public bool canIdoIt { get; set; }
 
         public virtual Client Client { get; set; }
 

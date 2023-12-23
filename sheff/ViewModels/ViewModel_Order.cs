@@ -44,11 +44,11 @@ namespace sheff.ViewModels
         private List<ViewModel_Service> GetDataFromDatabase()
         {
             // Здесь вам нужно выполнить операции для получения данных из базы данных
-            // Например, используя Entity Framework или другой механизм доступа к данным
+            // Например, используя Entity Framework или другой механизм доступа к данным ////OrdersInProgress
 
             // Пример:
-            // var dataFromDatabase = dbContext.Services.ToList();
-            // return dataFromDatabase.Select(service => new ViewModel_Service { /* инициализация свойств */ }).ToList();
+            //var dataFromDatabase = _orderService. Services.ToList();
+            //return dataFromDatabase.Select(service => new ViewModel_Service { /* инициализация свойств */ }).ToList();
 
             // Замените этот код на реальные операции доступа к данным и инициализации объектов ViewModel_Service
             return new List<ViewModel_Service>
@@ -78,7 +78,7 @@ namespace sheff.ViewModels
             _orderService.MakeOrder(newOrder); // Предполагается, что у вас есть метод AddOrder в IOrderService
         }
 
-        //-----------------Заказ----------------------------
+        //-----------------Заказ создать----------------------------
 
         private List<ViewModel_Service> _availableServices;
         private ObservableCollection<ViewModel_Service> _selectedServices;
