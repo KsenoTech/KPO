@@ -1,0 +1,236 @@
+﻿<Window x:Class="sheff.Views.Window_Customer"
+		xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		xmlns:local="clr-namespace:sheff.Views" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+		mc:Ignorable="d"
+		
+		Title="Шеф-Построит! - Заказчик" 
+		Height="620" Width="800" 
+		WindowStartupLocation="CenterScreen"
+		Background="MediumPurple">
+
+    <Window.Resources>
+        <Style TargetType="Control">
+            <Setter Property="Foreground" Value="Orange"/>
+        </Style>
+
+        <Style TargetType="TextBlock">
+            <Setter Property="Foreground" Value="Orange"/>
+        </Style>
+
+        <ImageBrush x:Key="YourImageBrushKey" ImageSource="\Images\fon_customer.png" Opacity="0.8" Stretch="UniformToFill"/>
+    </Window.Resources>
+
+    <DockPanel >
+        <TabControl Width="Auto">
+
+            <TabItem Width="Auto">
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="\Icons\MenuIcon.png" Width="20" Height="20" Margin="0,0,10,0"/>
+                        <TextBlock Text="Главная"/>
+                    </StackPanel>
+                </TabItem.Header>
+                <Grid>
+                    <Border Background="{StaticResource YourImageBrushKey}">
+
+                    </Border>
+                </Grid>
+
+            </TabItem>
+
+
+            <TabItem Width="Auto">
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="\Icons\OrderIcon.png" Width="20" Height="20" Margin="0,0,10,0"/>
+                        <TextBlock Text="Сделать заказ"/>
+                    </StackPanel>
+                </TabItem.Header>
+
+                <Grid>
+                    <TextBlock Text="Сделать заказ" Margin="110,10,30,50"/>
+                </Grid>
+            </TabItem>
+
+
+            <TabItem Width="Auto">
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="\Icons\ProfileIcon.png" Width="20" Height="20" Margin="0,0,10,0"/>
+                        <TextBlock Text="Профиль"/>
+                    </StackPanel>
+                </TabItem.Header>
+                <Border Background="{StaticResource YourImageBrushKey}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="2*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <materialDesign:Card Grid.Column="1" Width="Auto" HorizontalAlignment="Stretch">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="140" />
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+
+                            <Image
+	                              Height="140"
+	                              Source="Resources/Contact.png"
+	                              Stretch="UniformToFill" />
+
+                            <Button
+	                              Grid.Row="0"
+	                              Margin="0,0,16,-20"
+	                              HorizontalAlignment="Right"
+	                              VerticalAlignment="Bottom"
+	                              Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}">
+
+                                <materialDesign:PackIcon Kind="ShareVariant" />
+                            </Button>
+                            <StackPanel
+	                              Grid.Row="1"
+	                              Margin="8,24,8,4">
+                                <TextBlock
+		                          Margin="0"
+		                          Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
+		                          Text="E.T. the Extra-Terrestrial" />
+
+                                <Viewbox
+		                            Height="16"
+		                            Margin="0,4,0,8"
+		                            HorizontalAlignment="Left">
+
+                                    <materialDesign:RatingBar
+		                              Margin="0"
+		                              Foreground="Gold"
+		                              Orientation="Horizontal"
+		                              Value="3" />
+                                </Viewbox>
+
+                                <TextBlock
+		                            VerticalAlignment="Center"
+		                            Style="{StaticResource MaterialDesignBody1TextBlock}"
+		                            Text="Тут надо данные о пользователе. БЛоком"
+		                            TextWrapping="Wrap" />
+
+                            </StackPanel>
+
+                            <Separator
+	                          Grid.Row="2"
+	                          Margin="8,0,8,0"
+	                          Style="{StaticResource MaterialDesignDarkSeparator}" />
+
+                            <TextBlock
+	                          Grid.Row="3"
+	                          Margin="8,4,8,4"
+	                          Style="{StaticResource MaterialDesignBody2TextBlock}"
+	                          Text="Tonight's availability" />
+
+                            <Grid Grid.Row="4">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+
+                                <ListBox
+		                            Grid.Column="1"
+		                            Margin="4,8,8,4"
+		                            SelectedIndex="0"
+		                            Style="{StaticResource MaterialDesignToolToggleFlatListBox}">
+                                    <ListBox.Resources>
+                                        <Style
+			                                    TargetType="{x:Type ListBoxItem}"
+			                                    BasedOn="{StaticResource MaterialDesignToolToggleListBoxItem}">
+                                            <Setter Property="Padding" Value="4,6,4,6" />
+                                        </Style>
+                                    </ListBox.Resources>
+                                    <ListBox.ToolTip>
+                                        <StackPanel>
+                                            <TextBlock Text="MaterialDesignFlatToggleListBox" />
+                                            <TextBlock Text="Exclusive selection" />
+                                            <TextBlock Text="ListBoxAssist.IsToggle allows more natural toggle behaviour" />
+                                        </StackPanel>
+                                    </ListBox.ToolTip>
+
+                                    <ListBoxItem>
+                                        <TextBlock Text="18:00" />
+                                    </ListBoxItem>
+
+                                    <ListBoxItem>
+                                        <TextBlock Text="19:00" />
+                                    </ListBoxItem>
+
+                                    <ListBoxItem>
+                                        <TextBlock Text="22:00" />
+                                    </ListBoxItem>
+                                </ListBox>
+                            </Grid>
+                                <StackPanel Grid.Row="5">
+                                    <Button Content="Выход" Command="{Binding ExitFromAccauntCommandommand}" Style="{StaticResource MaterialDesignFlatButton}"/>
+                            </StackPanel>
+                        </Grid>
+                    </materialDesign:Card>
+                </Grid>
+                </Border>
+            </TabItem>
+
+
+            <TabItem Width="Auto">
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="\Icons\InProgresIcon.png" Width="20" Height="20" Margin="0,0,10,0"/>
+                        <TextBlock Text="В процессе"/>
+                    </StackPanel>
+                </TabItem.Header>
+
+                <Grid>
+                    <TextBlock Text="В процессе" Margin="110,10,30,50"/>
+                </Grid>
+            </TabItem>
+
+            <TabItem Width="Auto">
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="\Icons\HistoryIcon.png" Width="20" Height="20" Margin="0,0,10,0"/>
+                        <TextBlock Text="История"/>
+                    </StackPanel>
+                </TabItem.Header>
+
+                <Grid>
+                    <DataGrid  AutoGenerateColumns="False" x:Name="HistoryGrid_Customer" ItemsSource="{Binding OrdersForHistories}">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Binding="{Binding Id}" Header="№" Width="30"/>
+                            <DataGridTextColumn Binding="{Binding Description}" Header="Описание" Width="70"/>
+                            <!--<DataGridTextColumn Binding="{Binding Name_Executor}" Header="Имя исполнителя" Width="70"/>
+                            <DataGridTextColumn Binding="{Binding Empphonenumber}" Header="Телефон" Width="100"/>
+                            <DataGridTextColumn Binding="{Binding Empaddress}" Header="Адрес ремонта" Width="130"/>
+                            <DataGridTextColumn Binding="{Binding Total_cost}" Header="Итоговая стоимость" Width="70"/>-->
+                        </DataGrid.Columns>
+
+                        <!--<DataGridTemplateColumn Width="200">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Content="Удалить"  CommandParameter="{Binding Path=Id}"
+                                        Command="{Binding Path=DataContext.DeleteCommand, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>-->
+                    </DataGrid>
+                    <Button Content="Button" HorizontalAlignment="Left" Command="{Binding HistoryCommand}"
+                            Margin="693,56,0,0" VerticalAlignment="Top" Width="107"/>
+                    <!--<TextBlock Text="История" Margin="110,10,30,50"/>-->
+                </Grid>
+            </TabItem>
+        </TabControl>
+
+    </DockPanel>
+</Window>

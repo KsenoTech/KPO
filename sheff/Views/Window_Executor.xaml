@@ -1,0 +1,89 @@
+﻿<Window x:Class="sheff.Views.Window_Executor"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:sheff.Views"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        Title="Шеф-Построит! - Исполнитель"
+        Height="380" Width="800"
+        WindowStartupLocation="CenterScreen"
+        Background="MediumPurple">
+
+    <!-- Same Window.Resources as in Window_Customer.xaml -->
+
+    <DockPanel>
+        <TabControl Width="Auto">
+
+            <!-- Tab for Viewing Orders -->
+            <TabItem Width="Auto">
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="\Icons\OrderIcon.png" Width="20" Height="20" Margin="0,0,10,0"/>
+                        <TextBlock Text="Просмотр заказов"/>
+                    </StackPanel>
+                </TabItem.Header>
+
+                <Grid>
+                    <!-- DataGrid to display orders from the database -->
+                    <DataGrid x:Name="OrdersGrid_Executor" AutoGenerateColumns="False">
+                        <!-- Define columns for your data -->
+                        <DataGridTextColumn Binding="{Binding OrderId}" Header="№" Width="30"/>
+                        <DataGridTextColumn Binding="{Binding CustomerName}" Header="Имя заказчика" Width="100"/>
+                        <DataGridTextColumn Binding="{Binding OrderDescription}" Header="Описание заказа" Width="200"/>
+                        <DataGridTextColumn Binding="{Binding OrderStatus}" Header="Статус заказа" Width="100"/>
+                        <!-- Add more columns as needed -->
+
+                        <!-- Buttons to add or reject orders -->
+                        <DataGridTemplateColumn Width="150">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Button Content="Добавить" Command="{Binding DataContext.AddOrderCommand, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" CommandParameter="{Binding OrderId}"/>
+                                        <Button Content="Отказаться" Command="{Binding DataContext.RejectOrderCommand, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" CommandParameter="{Binding OrderId}"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid>
+                </Grid>
+            </TabItem>
+
+            <!-- Tab for Profile -->
+            <TabItem Width="Auto">
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="\Icons\ProfileIcon.png" Width="20" Height="20" Margin="0,0,10,0"/>
+                        <TextBlock Text="Профиль"/>
+                    </StackPanel>
+                </TabItem.Header>
+
+                <Grid>
+                    <!-- Your profile content goes here -->
+                </Grid>
+            </TabItem>
+
+            <!-- Tab for Orders in Progress -->
+            <TabItem Width="Auto">
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="\Icons\InProgresIcon.png" Width="20" Height="20" Margin="0,0,10,0"/>
+                        <TextBlock Text="Заказы в процессе"/>
+                    </StackPanel>
+                </TabItem.Header>
+
+                <Grid>
+                    <!-- DataGrid to display orders in progress with a field for entering progress -->
+                    <DataGrid x:Name="InProgressGrid_Executor" AutoGenerateColumns="False">
+                        <!-- Define columns for your data -->
+                        <DataGridTextColumn Binding="{Binding OrderId}" Header="№" Width="30"/>
+                        <DataGridTextColumn Binding="{Binding OrderDescription}" Header="Описание заказа" Width="200"/>
+                        <DataGridTextColumn Binding="{Binding Progress}" Header="Прогресс выполнения" Width="150"/>
+                        <!-- Add more columns as needed -->
+                    </DataGrid>
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </DockPanel>
+</Window>

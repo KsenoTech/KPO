@@ -1,0 +1,10 @@
+C:\LEEV\UNIVER\3_course-1_term\Конструирование ПО\KURSACH\DomainModel\bin\Debug\DomainModel.dll.config
+C:\LEEV\UNIVER\3_course-1_term\Конструирование ПО\KURSACH\DomainModel\bin\Debug\DomainModel.dll
+C:\LEEV\UNIVER\3_course-1_term\Конструирование ПО\KURSACH\DomainModel\bin\Debug\DomainModel.pdb
+C:\LEEV\UNIVER\3_course-1_term\Конструирование ПО\KURSACH\DomainModel\bin\Debug\Ninject.dll
+C:\LEEV\UNIVER\3_course-1_term\Конструирование ПО\KURSACH\DomainModel\bin\Debug\Ninject.xml
+C:\LEEV\UNIVER\3_course-1_term\Конструирование ПО\KURSACH\DomainModel\obj\Debug\DomainModel.csproj.AssemblyReference.cache
+C:\LEEV\UNIVER\3_course-1_term\Конструирование ПО\KURSACH\DomainModel\obj\Debug\DomainModel.csproj.CoreCompileInputs.cache
+C:\LEEV\UNIVER\3_course-1_term\Конструирование ПО\KURSACH\DomainModel\obj\Debug\DomainModel.csproj.CopyComplete
+C:\LEEV\UNIVER\3_course-1_term\Конструирование ПО\KURSACH\DomainModel\obj\Debug\DomainModel.dll
+C:\LEEV\UNIVER\3_course-1_term\Конструирование ПО\KURSACH\DomainModel\obj\Debug\DomainModel.pdb
