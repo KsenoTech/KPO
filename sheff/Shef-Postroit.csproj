@@ -1,0 +1,51 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <RootNamespace>Shef_Postroit</RootNamespace>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+    <ImplicitUsings>disable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="MainWindow.xaml.cs" />
+    <Compile Remove="Views\MainWindow.xaml.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Icons\ExitIcon.png" />
+    <None Remove="Icons\HistoryIcon.png" />
+    <None Remove="Icons\InProgresIcon.png" />
+    <None Remove="Icons\MenuIcon.png" />
+    <None Remove="Icons\OrderIcon.png" />
+    <None Remove="Icons\ProfileIcon.png" />
+    <None Remove="Images\fon_customer.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Icons\ExitIcon.png" />
+    <Resource Include="Icons\HistoryIcon.png" />
+    <Resource Include="Icons\InProgresIcon.png">
+      <CopyToOutputDirectory></CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Icons\MenuIcon.png" />
+    <Resource Include="Icons\OrderIcon.png" />
+    <Resource Include="Icons\ProfileIcon.png" />
+    <Resource Include="Images\fon_customer.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="EntityFramework" Version="6.4.4" />
+    <PackageReference Include="MaterialDesignThemes" Version="4.9.0" />
+    <PackageReference Include="Ninject" Version="3.3.6" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BLL\BLL.csproj" />
+    <ProjectReference Include="..\DAL\DAL.csproj" />
+    <ProjectReference Include="..\Interfaces\Interfaces.csproj" />
+  </ItemGroup>
+
+</Project>
