@@ -22,7 +22,7 @@ namespace sheff.Views
     /// </summary>
     public partial class Window_Executor : Window
     {
-        public Window_Executor(IOrderService orderService)
+        public Window_Executor(IOrderService orderService, int ID_user)
         {
            InitializeComponent();
             var loginViewModel = new ViewModel_Executor(this, orderService);

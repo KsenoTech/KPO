@@ -14,6 +14,7 @@ namespace sheff.ViewModels
         private readonly Login_Reg_Window _window;
         private readonly IExecutorService _executorService;
         private readonly IClientService _clientService;
+        public int ID_user;
 
         private string _login;
         private string _password;
@@ -56,7 +57,8 @@ namespace sheff.ViewModels
             {
                 if (i.login == _login && i.password == _password)
                 {
-                    _window.OpenNextWindow(true);
+                    ID_user = i.Id;
+                    _window.OpenNextWindow(true, ID_user);
                     break;
                 }
             }
@@ -65,7 +67,8 @@ namespace sheff.ViewModels
             {
                 if (i.login == _login && i.password == _password)
                 {
-                    _window.OpenNextWindow(false);
+                    ID_user = i.Id;
+                    _window.OpenNextWindow(false, ID_user);
                     break;
                 }
             }

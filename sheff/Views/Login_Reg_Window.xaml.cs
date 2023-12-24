@@ -27,19 +27,19 @@ namespace sheff.Views
         /// ТУТ ЗАДАЕТСЯ ПРОВЕРКА ВХОДА, если да, то клиент
         /// </summary>
         /// <param name="user"></param>
-        public void OpenNextWindow(bool user)
+        public void OpenNextWindow(bool user, int ID_user)
         {
             IOrderService orderService = App.Kernel.Get<IOrderService>();
             Window window = null;
             if (user)
             {
-                window = new Window_Customer(orderService); //Customer
+                window = new Window_Customer(orderService, ID_user); //Customer
                 //Application.Current.MainWindow = window;
                // window.Show();
             }      
             else
             {
-                window = new Window_Executor(orderService); // EXecutor
+                window = new Window_Executor(orderService, ID_user); // EXecutor
                // window.Show();
             }
             window.Show();
@@ -56,8 +56,8 @@ namespace sheff.Views
             if (IsValidLogin(enteredLogin) && IsValidPassword(enteredPassword))
             {
                 // Логин и пароль верны, открываем главную форму
-                Window_Customer mainForm = new Window_Customer(orderService);
-                mainForm.Show();
+                //Window_Customer mainForm = new Window_Customer(orderService);
+               // mainForm.Show();
                 Close();
             }
             else

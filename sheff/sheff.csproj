@@ -82,7 +82,9 @@
     </ApplicationDefinition>
     <Compile Include="Infrastructure\Commands\Base\Command.cs" />
     <Compile Include="Infrastructure\Commands\RelayCommand.cs" />
+    <Compile Include="Models\Model_Client.cs" />
     <Compile Include="Models\Model_Order.cs" />
+    <Compile Include="Models\Model_Service.cs" />
     <Compile Include="Utils\NinjectRegistrations.cs" />
     <Compile Include="Utils\ReposModule.cs" />
     <Compile Include="ViewModels\Base\ViewModel.cs" />

@@ -1,5 +1,7 @@
 ﻿
 using Interfaces.DTO;
+using Interfaces.Services;
+using MaterialDesignThemes.Wpf;
 using Ninject;
 using Services;
 using sheff.Infrastructure.Commands;
@@ -9,6 +11,7 @@ using sheff.Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Windows.Input;
 
 namespace sheff.ViewModels
@@ -23,9 +26,10 @@ namespace sheff.ViewModels
             SubVM_Order = new ViewModel_Order(_orderService);
         }
 
-
         private readonly IOrderService _orderService;
+        private readonly IClientService _clientService;
         private readonly Window_Customer _wnd;
+        private int _id;
 
         private ICommand _exitFromAccauntCommand;
 
@@ -77,6 +81,39 @@ namespace sheff.ViewModels
         }
 
 
+
+
+        private ICommand _updateProfileCommand;
+        public ICommand UpdateProfileCommand
+        {
+            get { return _updateProfileCommand; }
+            set
+            {
+                if (!Set(ref _updateProfileCommand, value)) return;
+            }
+        }
+        private List<Model_Client> _profile;
+        public List<Model_Client> Profile
+        {
+            get => _profile;
+            set
+            {
+                if (!Set(ref _profile, value)) return;
+            }
+        }
+        public void GetClientInfo(object obj)
+        {
+            Profile = ConvertProfileView(_clientService.GetAllClients());
+            var t = 5;
+        }
+        private List<Model_Client> ConvertProfileView(List<ClientDTO> orders)
+        {
+            return orders.Select(i => new Model_Client(i)).ToList();
+        }
+
+
+
+
         private ICommand _inProgressCommand;
         public ICommand InProgressCommand
         {
@@ -106,20 +143,49 @@ namespace sheff.ViewModels
         {
             return orders.Select(i => new Model_OrdersForHistory(i)).ToList();
         }
-
-        public ViewModel_Customer(Window_Customer thisWindow, IOrderService orderService) 
+        
+        private List<Model_OrdersForHistory> _ordersForMakeOrder;
+        public List<Model_OrdersForHistory> MakeOrder_Customer
+        {
+            get => _ordersForMakeOrder;
+            set
+            {
+                if (!Set(ref _ordersForMakeOrder, value)) return;
+            }
+        }
+        public ViewModel_Customer(Window_Customer thisWindow, IOrderService orderService, int ID_user) 
         {
             _orderService = orderService;
             HistoryCommand = new RelayCommand(SearchFinishedOrders);
             InProgressCommand = new RelayCommand(SearchInProgressOrders);
-            //_ordersForHistory = ConvertDataOrderView(_orderService.GetFinishedOrders());
-            _wnd = thisWindow;
+            //_ordersForMakeOrder = ConvertDataOrderView(_orderService.GetFinishedOrders());
+            UpdateProfileCommand = new RelayCommand(GetClientInfo);
 
+            //List<ViewModel_Service> servicesFromDatabase = GetDataFromDatabase();
+            //_ordersForOrder = servicesFromDatabase;
+            _wnd = thisWindow;
+            _id = ID_user;
 
             StartDate = new DateTime(2023, 12, 20);
             EndDate = new DateTime(2023, 12, 31);
+        }
 
+        private List<ViewModel_Service> GetDataFromDatabase()
+        {
+            // Здесь вам нужно выполнить операции для получения данных из базы данных
+            // Например, используя Entity Framework или другой механизм доступа к данным ////OrdersInProgress
 
+            // Пример:
+            var dataFromDatabase = _orderService.GetAllOrders().ToList();
+            return dataFromDatabase.Select(service => new ViewModel_Service { /* инициализация свойств */ }).ToList();
+
+            // Замените этот код на реальные операции доступа к данным и инициализации объектов ViewModel_Service
+            //return new List<ViewModel_Service>
+            //{
+            //    new ViewModel_Service { Description = "Услуга 1", CostOfMeter = 100 },
+            //    new ViewModel_Service { Description = "Услуга 2", CostOfSquareMeter = 50 },
+            //    // Добавьте остальные объекты ViewModel_Service
+            //};
         }
 
         #region CALENDAR

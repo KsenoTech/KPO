@@ -1,6 +1,7 @@
 ﻿using Interfaces.DTO;
 using Services;
 using sheff.Infrastructure.Commands;
+using sheff.Models;
 using sheff.ViewModels.Base;
 using sheff.Views;
 using System;
@@ -12,10 +13,10 @@ using System.Windows.Input;
 
 namespace sheff.ViewModels
 {
-    public class ViewModel_Order :ViewModel
+    public class ViewModel_Order : ViewModel
     {
-        private string _subProperty;
-        public string SubProperty
+        public List<Type_of_serviceDTO> _subProperty;
+        public List<Type_of_serviceDTO> AllTServices
         {
             get { return _subProperty; }
             set
@@ -23,17 +24,24 @@ namespace sheff.ViewModels
                 if (_subProperty != value)
                 {
                     _subProperty = value;
-                    OnPropertyChanged(nameof(SubProperty));
+                    OnPropertyChanged(nameof(AllTServices));
                 }
             }
         }
+        public ViewModel_Order(ITServiceService tServiceService)
+        {
+            AllTServices = tServiceService.GetAllTServices();
+            // Инициализация остальных свойств и команд
+        }
+
         private readonly IOrderService _orderService;
+        private readonly ITServiceService _tserviceService;
 
         public ViewModel_Order(IOrderService orderService)
         {
             _orderService = orderService;
             OrdersForHistories = new ObservableCollection<OrderDTO>(); // Используем ObservableCollection для автоматического обновления данных в DataGrid
-            AddOrderCommand = new RelayCommand(AddOrder);
+            //AddOrderCommand = new RelayCommand(AddOrder);
 
             List<ViewModel_Service> servicesFromDatabase = GetDataFromDatabase();
 
@@ -44,39 +52,27 @@ namespace sheff.ViewModels
         private List<ViewModel_Service> GetDataFromDatabase()
         {
             // Здесь вам нужно выполнить операции для получения данных из базы данных
-            // Например, используя Entity Framework или другой механизм доступа к данным ////OrdersInProgress
-
-            // Пример:
-            //var dataFromDatabase = _orderService. Services.ToList();
-            //return dataFromDatabase.Select(service => new ViewModel_Service { /* инициализация свойств */ }).ToList();
-
-            // Замените этот код на реальные операции доступа к данным и инициализации объектов ViewModel_Service
-            return new List<ViewModel_Service>
-            {
-                new ViewModel_Service { Description = "Услуга 1", CostOfMeter = 100 },
-                new ViewModel_Service { Description = "Услуга 2", CostOfSquareMeter = 50 },
-                // Добавьте остальные объекты ViewModel_Service
-            };
+            var dataFromDatabase = _tserviceService.GetAllTServices().ToList();
+            return dataFromDatabase.Select(service => new ViewModel_Service { /* инициализация свойств */ }).ToList();
         }
 
         public ObservableCollection<OrderDTO> OrdersForHistories { get; set; }
-        public ICommand AddOrderCommand { get; }
-        private void AddOrder(object obj)
-        {
-            // Создаем новый заказ
-            OrderDTO newOrder = new OrderDTO
-            {
-                // Заполняем свойства заказа, например, с помощью диалогового окна или другого интерфейса
-                 // Пример: генерация уникального ID для заказа
-                description = "Новый заказ", // Пример: начальное описание
-                time_order = DateTime.Now, // Пример: текущее время
-                
-            };
 
-            // Добавляем заказ в коллекцию и в базу данных
-            OrdersForHistories.Add(newOrder);
-            _orderService.MakeOrder(newOrder); // Предполагается, что у вас есть метод AddOrder в IOrderService
+
+        private ICommand _addOrderCommand;
+        public ICommand AddOrderCommand
+        {
+            get
+            {
+                if (_addOrderCommand == null)
+                {
+                   // _addOrderCommand = new RelayCommand(AddOrder);
+                }
+                return _addOrderCommand;
+            }
         }
+
+
 
         //-----------------Заказ создать----------------------------
 

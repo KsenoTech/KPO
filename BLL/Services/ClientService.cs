@@ -21,5 +21,11 @@ namespace BLL.Services
         {
             return db.Clients.GetList().Select(i => new ClientDTO(i)).ToList();
         }
+
+        public ClientDTO GetClient(int Id)
+        {
+            return new ClientDTO(db.Clients.GetItem(Id));
+        }
+
     }
 }

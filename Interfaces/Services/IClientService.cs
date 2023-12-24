@@ -11,5 +11,6 @@ namespace Interfaces.Services
     {
         List<ClientDTO> GetAllClients();
 
+        ClientDTO GetClient(int Id);
     }
 }

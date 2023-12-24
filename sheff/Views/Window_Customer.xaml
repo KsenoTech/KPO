@@ -1,4 +1,5 @@
-﻿<Window x:Class="sheff.Views.Window_Customer"
+﻿
+    <Window x:Class="sheff.Views.Window_Customer"
 		xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -25,8 +26,8 @@
 
 
     <DockPanel >
-        <TabControl Width="Auto">
-
+        <TabControl x:Name="TabControl" Width="Auto" >
+            <!--SelectionChanged="TabControl_SelectionChanged"-->
             <TabItem Width="Auto">
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
@@ -49,7 +50,7 @@
 
                     <Image Source="\Images\Own_Logo.png" HorizontalAlignment="Center" />
 
-                    <Grid Grid.Column="0" Grid.Row="1" HorizontalAlignment="Center">
+                    <Grid Grid.Column="0" Grid.Row="1">
                         <!-- Место для логотипа -->
 
 
@@ -70,9 +71,7 @@
                     </Grid>
 
                     <Grid Grid.Column="2" Grid.RowSpan="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-                        <materialDesign:DialogHost
-    
-    DialogTheme="Inherit">
+                        <materialDesign:DialogHost DialogTheme="Inherit">
                             <!--DialogClosing="Sample1_DialogHost_OnDialogClosing"-->
                             <materialDesign:DialogHost.DialogContent>
                                 <StackPanel Margin="16">
@@ -105,13 +104,13 @@
                                 </StackPanel>
                             </materialDesign:DialogHost.DialogContent>
                             <Border MinHeight="256" BorderBrush="{DynamicResource PrimaryHueMidBrush}" BorderThickness="1" ClipToBounds="True" Background="#FF673AB7">
-                                <!-- Medium Purple Background -->
+                                
                                 <Grid>
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="*" />
                                         <RowDefinition Height="Auto" />
                                     </Grid.RowDefinitions>
-                                    <ListBox x:Name="FruitListBox">
+                                    <ListBox x:Name="FruitListBox" Margin="472,0,0,0">
                                         <ListBoxItem Content="Позвонить плиточнику" />
                                         <ListBoxItem Content="в 8 вечера замер обоев" />
                                         <ListBoxItem Content="Проверить проводку на кухне" />
@@ -121,15 +120,13 @@
                                     </materialDesign:ColorZone>
                                     <Button Grid.Row="0" Margin="0,0,28,-20" HorizontalAlignment="Right" VerticalAlignment="Bottom"
                     Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}"
+                   
                     Content="{materialDesign:PackIcon Kind=Plus, Size=22}"
                     Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" />
                                 </Grid>
                             </Border>
                         </materialDesign:DialogHost>
-
-
                     </Grid>
-
 
                 </Grid>
 
@@ -144,38 +141,71 @@
                     </StackPanel>
                 </TabItem.Header>
 
-                <Grid Background="{StaticResource YourImageBrushKey}">
+                  
+                    <!--<DataGrid ItemsSource="{Binding MakeOrder_Customer, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False">
+                        --><!-- Остальные столбцы DataGrid --><!--
+                    </DataGrid>-->
+                    <!-- ListBox с услугами из "Type_of_service" 
+                                <CheckBox Content="{Binding description}" IsChecked="{Binding IsSelected}"/>-->
+                    <!--<GroupBox Grid.ColumnSpan="6" Grid.Row="1" Background="White" Header="Заявка">-->
+                <Grid Background="{StaticResource YourImageBrushKey}"  >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="2*"/>
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
 
+                    <DataGrid AutoGenerateColumns="False"  ItemsSource="{Binding Services_List}" IsReadOnly="True" SelectionMode="Single" SelectionUnit="FullRow" VerticalAlignment="Top" Margin ="50,0,50,10">
+                        <DataGrid.Columns  >
+                            <DataGridTextColumn Binding="{Binding id}" Header="Номер" Width="Auto"/>
+                            <DataGridTextColumn Binding="{Binding description_of_service}" Header="Название услуги" Width="Auto"/>
+                            <DataGridTextColumn Binding="{Binding cost_of_m}" Header="Стоимость за метр" Width="Auto"/>
+                            <DataGridTextColumn Binding="{Binding cost_of_m2}" Header="Стоимость за кв. метр" Width="Auto"/>
+                            
+                            <DataGridTemplateColumn>
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <CheckBox Content="Добавить" CommandParameter="{Binding Path=Id}"
+                                        Command="{Binding Path=DataContext.EditWinCommand,RelativeSource={RelativeSource FindAncestor,
+                                                AncestorType=Window}}"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
 
-                    <TextBox Text="{Binding SubVM_Order.SubProperty}" />
-                    <!-- List of available services -->
-                    <ListBox ItemsSource="{Binding SubVM_Order.AvailableServices}">
-                        <ListBox.ItemTemplate>
-                            <DataTemplate>
-                                <CheckBox Content="{Binding Description}" IsChecked="{Binding IsSelected}"/>
-                             </DataTemplate>
-                        </ListBox.ItemTemplate>
-                    </ListBox>
-
-                    <!-- Selected services -->
-                    <ListBox ItemsSource="{Binding SelectedServices}" >
-                        <!-- Customize as needed -->
-                    </ListBox>
-
-                    <!-- Description and other controls -->
-                    <TextBox Text="{Binding Description}"/>
-                    <TextBlock Text="{Binding GeneralBudget}"/>
-
-                    <StackPanel Margin="20">
-                        <Button Content="Добавить заказ" Command="{Binding SubVM_Order.AddOrderCommand}" Margin="0 20 0 0"/>
-                    </StackPanel>
+                        <Label Grid.Row="2" Content="s" VerticalContentAlignment="Top" />
+                        <Label Grid.Row="2"/>
+                        <Label Grid.Row="2"/>
+                        <Label Grid.Row="2"/>
+                        <Label Grid.Row="2"/>
+                        <Label Grid.Row="2"/>
+                        <Label Grid.Row="2"/>
+                        <Label Grid.Row="2"/>
+                        <Label Grid.Row="2"/>
+                        <Label Grid.Row="2"/>
+                        <Label Grid.Row="2"/>
+                        <Label Grid.Row="2"/>
+                        <Label Grid.Row="2"/>
+                        <Label Grid.Row="2"/>
+                        <Label Grid.Row="2"/>
+                    </DataGrid>
+                    
+                    <TextBox  materialDesign:HintAssist.Hint="Описание ремонта:" Grid.Row="2" 
+                              Text="{Binding Path=description,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
+                              Margin="50,0" Background="White" />
+                    
+                    <Button Grid.Row="2" Content="Добавить заказ" Command="{Binding AddOrderCommand}" VerticalAlignment="Bottom"  Margin="50,0"/>
                 </Grid>
+                        
+                    <!--</GroupBox>-->
+                    
+                    <!--<TextBox  Text="{Binding description}"/>
+                    <TextBlock Text="{Binding general_budget}"/>-->            
             </TabItem>
 
 
-            <TabItem Width="Auto">
-                <TabItem.Header>
-                    <StackPanel Orientation="Horizontal">
+            <TabItem Width="Auto" x:Name="Profile_View">
+                <TabItem.Header >
+                    <StackPanel Orientation="Horizontal" >
                         <Image Source="\Icons\ProfileIcon.png" Width="20" Height="20" Margin="0,0,10,0"/>
                         <TextBlock Text="Профиль"/>
                     </StackPanel>
@@ -196,67 +226,69 @@
                                     <RowDefinition Height="3*"/>
                                     <RowDefinition Height="Auto"/>
                                 </Grid.RowDefinitions>
+                                
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="1*"/>
+                                    <ColumnDefinition Width="1*"/>
+                                </Grid.ColumnDefinitions>
 
-                                <Image
+                                <Image Grid.Row="0" Grid.ColumnSpan="2"
 	                              Source="\Images\client.png"
 	                              Stretch="Uniform" />
 
                                 <Button
-	                              Grid.Row="0"
+	                              Grid.Row="0" Grid.Column="1"
 	                              Margin="0,0,16,-20"
 	                              HorizontalAlignment="Right"
 	                              VerticalAlignment="Bottom"
 	                              Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}">
                                     <materialDesign:PackIcon Kind="InsertPhoto" />
                                 </Button>
-                                
-                                
-                                <StackPanel Grid.Row="1" Margin="8,20,8,0">
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBlock Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
-                                                   Text="Заказчик"/>
 
-                                        <Viewbox Height="16"
-                                             Margin="10,4,0,8"
-                                             HorizontalAlignment="Left">            
-                                                <materialDesign:RatingBar
+                                <Viewbox Height="16" Grid.Row="1" Grid.Column="1"
+                                            VerticalAlignment="Top" Margin="0,25,0,0"
+                                             HorizontalAlignment="Left">
+                                    <materialDesign:RatingBar
                                                 Foreground="Red"
                                                 Orientation="Horizontal"
                                                 Value="4" />
-                                                <!--Value="{Binding rating}" />-->
-                                        </Viewbox>
+                                    <!--Value="{Binding rating}" />-->
+                                </Viewbox>
+                                
+                                <StackPanel Grid.Row="1" Grid.ColumnSpan="1" Margin="8,20,8,0">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
+                                                   Text="Заказчик"/>
                                     </StackPanel>
-
-
-
-                                    <TextBlock Text="Фамилия: " Foreground="Black"/>
-                                    <TextBlock Text="- " />
-
-                                    <TextBlock Text="Имя: " Foreground="Black"/>
-                                    <TextBlock Text="- " />
-
-                                    <TextBlock Text="Отчество: " Foreground="Black"/>
-                                    <TextBlock Text="- " />
-                                    
-                                    <TextBlock Text="E-Mail: " Foreground="Black"/>
-                                    <TextBlock Text="- " />
-
-                                    <TextBlock Text="Телефон: " Foreground="Black"/>
-                                    <TextBlock Text="- " />
-
-                                    <TextBlock Text="Адрес: " Foreground="Black"/>
-                                    <TextBlock Text="- " />
-                                    
-                                    <TextBlock Text="Логин: " Foreground="Black"/>
-                                    <TextBlock Text="- " />
-
-                                    <TextBlock Text="Пароль: " Foreground="Black"/>
-                                    <TextBlock Text="- " />
+                                    <TextBlock Text="Фамилия: "  Foreground="Black"  Margin="0,20,0,0"/>
+                                    <TextBlock Text="Имя: "      Foreground="Black"  Margin="0,12,0,0"/>
+                                    <TextBlock Text="Отчество:"  Foreground="Black"  Margin="0,12,0,0"/>
+                                    <TextBlock Text="E-Mail: "   Foreground="Black"  Margin="0,12,0,0"/>
+                                     <TextBlock Text="Телефон:"  Foreground="Black"  Margin="0,12,0,0"/>
+                                    <TextBlock Text="Адрес: "    Foreground="Black"  Margin="0,12,0,0"/>
+                                    <TextBlock Text="Логин: "    Foreground="Black"  Margin="0,12,0,0"/>
+                                     <TextBlock Text="Пароль:"   Foreground="Black"  Margin="0,12,0,0"/>
                                 </StackPanel>
 
-                                <StackPanel Grid.Row="3">
-                                    <Button Content="Выход" Command="{Binding ExitFromAccauntCommandommand}" Style="{StaticResource MaterialDesignFlatButton}"/>
-                                </StackPanel>
+                                <ListBox ItemsSource="{Binding Profile}"   Grid.Row="1" Grid.Column="1" Margin="0,40,0,0">
+
+                                    <Label  Content="{Binding sername,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
+                                    <Label  Content="{Binding name,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
+                                    <Label  Content="{Binding middle-name,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
+                                    <Label  Content="{Binding e_mail,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
+
+                                    <Label  Content="{Binding telephone_number,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
+                                    <Label  Content="{Binding address,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
+                                    <Label  Content="{Binding login,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
+                                    <Label  Content="{Binding password ,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
+                                </ListBox>
+                                
+                                <Button  Grid.Row="1" Grid.Column="0" Content="Выход" Command="{Binding ExitFromAccauntCommandommand}" 
+                                         Style="{StaticResource MaterialDesignFlatButton}"
+                                         VerticalAlignment="Bottom"/>
+                                <Button  Grid.Row="1" Grid.Column="1" Content="Обновить" Command="{Binding UpdateProfileCommand}" 
+                                         Style="{StaticResource MaterialDesignFlatButton}"
+                                         VerticalAlignment="Bottom"/>
                             </Grid>
                         </materialDesign:Card>
                     </Grid>
@@ -272,8 +304,12 @@
                     </StackPanel>
                 </TabItem.Header>
 
-                <Grid>
-                    <DataGrid   x:Name="InProgressGrid_Customer" ItemsSource="{Binding OrdersInProgress, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False">
+                <Grid Background="{StaticResource YourImageBrushKey}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="10*"/>
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
+                    <DataGrid  Margin="50,0"  x:Name="InProgressGrid_Customer" ItemsSource="{Binding OrdersInProgress, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" >
                         <DataGrid.Columns>
                             <!--<DataGridTextColumn Binding="{Binding Id}" Header="№" Width="30"/>-->
                             <DataGridTextColumn Binding="{Binding description}" Header="Описание" Width="70"/>
@@ -282,7 +318,7 @@
                             <DataGridTextColumn Binding="{Binding canIdoIt}" Header="Взят ли мастером?" Width="130"/>
                             <DataGridTextColumn Binding="{Binding general_budget}" Header="Итоговая стоимость" Width="70"/>
                         </DataGrid.Columns>
-
+                        <!--<CheckBox Content="{Binding canIdoIt}" IsChecked="{Binding canIdoIt}"/>-->
                         <!--<DataGridTemplateColumn Width="200">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
@@ -292,8 +328,7 @@
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>-->
                     </DataGrid>
-                    <Button Content="Button" HorizontalAlignment="Left" Command="{Binding InProgressCommand}"
-                            Margin="693,250,0,0" VerticalAlignment="Top" Width="107"/>
+                    <Button Grid.Row="2" Content="Обновить" Command="{Binding InProgressCommand}" VerticalAlignment="Center"  Margin="50,0"/>
                 </Grid>
             </TabItem>
 
@@ -305,8 +340,13 @@
                     </StackPanel>
                 </TabItem.Header>
 
-                <Grid>
-                    <DataGrid   x:Name="HistoryGrid_Customer" ItemsSource="{Binding OrdersForHistories, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False">
+                <Grid Background="{StaticResource YourImageBrushKey}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="10*"/>
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
+                    <DataGrid  Margin="50,0"  x:Name="HistoryGrid_Customer" ItemsSource="{Binding OrdersForHistories, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                               AutoGenerateColumns="False">
                         <DataGrid.Columns>
                             <!--<DataGridTextColumn Binding="{Binding Id}" Header="№" Width="30"/>-->
                             <DataGridTextColumn Binding="{Binding description}" Header="Описание" Width="70"/>
@@ -325,9 +365,7 @@
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>-->
                     </DataGrid>
-                    
-                    <Button Content="Button" HorizontalAlignment="Left" Command="{Binding HistoryCommand}"
-                            Margin="693,250,0,0" VerticalAlignment="Top" Width="107"/>
+                   <Button Grid.Row="2" Content="Обновить" Command="{Binding HistoryCommand}" VerticalAlignment="Center"  Margin="50,0"/>
                 </Grid>
 
             </TabItem>
