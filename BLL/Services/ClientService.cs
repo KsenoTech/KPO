@@ -1,4 +1,5 @@
-﻿using Interfaces.DTO;
+﻿using DomainModel;
+using Interfaces.DTO;
 using Interfaces.Services;
 using Repository;
 using System;
@@ -26,6 +27,5 @@ namespace BLL.Services
         {
             return new ClientDTO(db.Clients.GetItem(Id));
         }
-
     }
 }

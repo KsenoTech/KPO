@@ -26,11 +26,21 @@ namespace DomainModel
         public bool IsItFinished { get; set; }
         public bool canIdoIt { get; set; }
 
+        public Position OrderPosition { get; set; }
+
         public virtual Client Client { get; set; }
 
         public virtual Executor Executor { get; set; }
 
         public virtual Feedback Feedback { get; set; }
         public virtual ICollection<Type_of_service> Type_of_services { get; set; }
+    }
+
+    public enum Position
+    {
+        InProgress,
+        Applied,
+        Rejected,
+        Finished
     }
 }

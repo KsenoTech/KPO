@@ -1,9 +1,11 @@
 ﻿using BLL.Services;
+using Interfaces.Services;
 using Services;
 using sheff.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -22,11 +24,11 @@ namespace sheff.Views
     /// </summary>
     public partial class Window_Executor : Window
     {
-        public Window_Executor(IOrderService orderService, int ID_user)
+        public Window_Executor(IOrderService orderService, IClientService clientService,IExecutorService executorService, int iD_user)
         {
-           InitializeComponent();
-            var loginViewModel = new ViewModel_Executor(this, orderService);
-            this.DataContext = loginViewModel;
+            InitializeComponent();
+            DataContext = new ViewModel_Executor(orderService, clientService, executorService, iD_user);
+            
         }
     }
 }

@@ -4,14 +4,24 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:sheff.Views"
-        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" xmlns:viewmodels="clr-namespace:sheff.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:ViewModel_Executor}"
         mc:Ignorable="d"
         Title="Шеф-Построит! - Исполнитель"
-        Height="380" Width="800"
+        Height="620" Width="820"
         WindowStartupLocation="CenterScreen"
         Background="MediumPurple">
 
-    <!-- Same Window.Resources as in Window_Customer.xaml -->
+    <Window.Resources>
+        <Style TargetType="Control">
+            <Setter Property="Foreground" Value="Orange"/>
+        </Style>
+
+        <Style TargetType="TextBlock">
+            <Setter Property="Foreground" Value="Orange"/>
+        </Style>
+
+        <ImageBrush x:Key="YourImageBrushKey" ImageSource="\Images\fon_customer.png" Opacity="0.8"  Stretch="UniformToFill"/>
+    </Window.Resources>
 
     <DockPanel>
         <TabControl Width="Auto">
@@ -24,30 +34,39 @@
                         <TextBlock Text="Просмотр заказов"/>
                     </StackPanel>
                 </TabItem.Header>
-
-                <Grid>
+                <Border Background="{StaticResource YourImageBrushKey}">
+                    <Grid>
                     <!-- DataGrid to display orders from the database -->
-                    <DataGrid x:Name="OrdersGrid_Executor" AutoGenerateColumns="False">
+                    <DataGrid  Margin="50,0,50,50" AutoGenerateColumns="False" ItemsSource="{Binding AvailableOrdersForExecutor}" IsReadOnly="True" SelectionMode="Single" SelectionUnit="FullRow">
                         <!-- Define columns for your data -->
-                        <DataGridTextColumn Binding="{Binding OrderId}" Header="№" Width="30"/>
-                        <DataGridTextColumn Binding="{Binding CustomerName}" Header="Имя заказчика" Width="100"/>
-                        <DataGridTextColumn Binding="{Binding OrderDescription}" Header="Описание заказа" Width="200"/>
-                        <DataGridTextColumn Binding="{Binding OrderStatus}" Header="Статус заказа" Width="100"/>
+                        <DataGrid.Columns>
+                        <DataGridTextColumn Binding="{Binding Client.name}" Header="Имя заказчика" Width="Auto"/>
+                        <DataGridTextColumn Binding="{Binding Client.surname}" Header="Фамилия заказчика" Width="Auto"/>
+                        <DataGridTextColumn Binding="{Binding Client.address}" Header="Адрес" Width="Auto"/>
+                        <DataGridTextColumn Binding="{Binding Client.telephone_number}" Header="Тел. заказчика" Width="Auto"/>
+                        <DataGridTextColumn Binding="{Binding Order.description}" Header="Описание" Width="Auto"/>
+                        <DataGridTextColumn Binding="{Binding Order.general_budget}" Header="Бюджет" Width="Auto"/>
                         <!-- Add more columns as needed -->
 
                         <!-- Buttons to add or reject orders -->
-                        <DataGridTemplateColumn Width="150">
+                        <DataGridTemplateColumn Width="130">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <StackPanel Orientation="Horizontal">
-                                        <Button Content="Добавить" Command="{Binding DataContext.AddOrderCommand, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" CommandParameter="{Binding OrderId}"/>
-                                        <Button Content="Отказаться" Command="{Binding DataContext.RejectOrderCommand, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" CommandParameter="{Binding OrderId}"/>
-                                    </StackPanel>
+                                        <Button Content="Добавить" CommandParameter="{Binding Path=Order.Id}" Command="{Binding DataContext.AddOrderCommand, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"/>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Width="140">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button Content="Отказаться" Command="{Binding DataContext.RejectOrderCommand, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" CommandParameter="{Binding Path=Order.Id}"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
                     </DataGrid>
                 </Grid>
+                </Border>
             </TabItem>
 
             <!-- Tab for Profile -->
@@ -59,9 +78,96 @@
                     </StackPanel>
                 </TabItem.Header>
 
-                <Grid>
-                    <!-- Your profile content goes here -->
-                </Grid>
+                <Border Background="{StaticResource YourImageBrushKey}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="2*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <materialDesign:Card Grid.Column="1" Width="Auto" HorizontalAlignment="Stretch">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="2*"/>
+                                    <RowDefinition Height="3*"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="1*"/>
+                                    <ColumnDefinition Width="1*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Image Grid.Row="0" Grid.ColumnSpan="2"
+	                              Source="\Images\execu.png"
+	                              Stretch="Uniform" Margin="10" />
+
+                                <Button
+	                              Grid.Row="0" Grid.Column="1"
+	                              Margin="0,0,16,-20"
+	                              HorizontalAlignment="Right"
+	                              VerticalAlignment="Bottom"
+	                              Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}">
+                                    <materialDesign:PackIcon Kind="InsertPhoto" />
+                                </Button>
+
+                                <Viewbox Height="16" Grid.Row="1" Grid.Column="1"
+                                            VerticalAlignment="Top" Margin="0,25,0,0"
+                                             HorizontalAlignment="Left">
+                                    <materialDesign:RatingBar
+                                                Foreground="Red"
+                                                Orientation="Horizontal"
+                                                Value="4" />
+                                    <!--Value="{Binding rating}" />-->
+                                </Viewbox>
+
+                                <StackPanel Grid.Row="1" Grid.ColumnSpan="1" Margin="8,20,8,0">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
+                                                   Text="Заказчик"/>
+                                    </StackPanel>
+                                    <TextBlock Text="Фамилия: "  Foreground="Black"  Margin="0,20,0,0"/>
+                                    <TextBlock Text="Имя: "      Foreground="Black"  Margin="0,10,0,0"/>
+                                    <TextBlock Text="Отчество:"  Foreground="Black"  Margin="0,10,0,0"/>
+                                    <TextBlock Text="E-Mail: "   Foreground="Black"  Margin="0,10,0,0"/>
+                                    <TextBlock Text="Телефон:"  Foreground="Black"   Margin="0,10,0,0"/>
+                                    <TextBlock Text="Адрес: "    Foreground="Black"  Margin="0,10,0,0"/>
+                                    <TextBlock Text="Логин: "    Foreground="Black"  Margin="0,10,0,0"/>
+                                    <TextBlock Text="Пароль:"   Foreground="Black"   Margin="0,10,0,0"/>
+                                </StackPanel>
+
+                                <ListView ItemsSource="{Binding ProfileForExecutor}"   Grid.Row="1" Grid.Column="1" Margin="0,40,0,0">
+                                    <!--<ListView.ItemTemplate>
+                                    <DataTemplate>
+                                    <ViewCell>
+                                        <ViewCell.View>
+                                            <Label  Text="{Binding Exec}" />
+                                    </ViewCell.View>
+                                        </ViewCell>
+                                        </DataTemplate>
+                                        </ListView.ItemTemplate>-->
+                                    
+                                            <Label  Content="{Binding name}" />
+                                    <Label  Content="{Binding middle-name}" />
+                                    <Label  Content="{Binding e_mail}" />
+
+                                    <Label  Content="{Binding telephone_numbe}" />
+                                    <Label  Content="{Binding address}" />
+                                    <Label  Content="{Binding login}" />
+                                    <Label  Content="{Binding password }" />
+                                </ListView>
+
+                                <Button  Grid.Row="1" Grid.Column="0" Content="Выход" Command="{Binding ExitFromAccauntCommandommand}" 
+                                         Style="{StaticResource MaterialDesignFlatButton}"
+                                         VerticalAlignment="Bottom"/>
+                                <Button  Grid.Row="1" Grid.Column="1" Content="Обновить" Command="{Binding UpdateProfileCommand}" 
+                                         Style="{StaticResource MaterialDesignFlatButton}"
+                                         VerticalAlignment="Bottom"/>
+                            </Grid>
+                        </materialDesign:Card>
+                    </Grid>
+                </Border>
             </TabItem>
 
             <!-- Tab for Orders in Progress -->
@@ -72,18 +178,65 @@
                         <TextBlock Text="Заказы в процессе"/>
                     </StackPanel>
                 </TabItem.Header>
-
-                <Grid>
-                    <!-- DataGrid to display orders in progress with a field for entering progress -->
-                    <DataGrid x:Name="InProgressGrid_Executor" AutoGenerateColumns="False">
+                <Border Background="{StaticResource YourImageBrushKey}">
+                    <Grid>
+                     <!-- DataGrid to display orders in progress with a field for entering progress -->
+                        <DataGrid  Margin="50,0,50,50" AutoGenerateColumns="False" 
+                                   ItemsSource="{Binding AplliedOrdersForExecutor}" 
+                                   IsReadOnly="True" SelectionMode="Single" SelectionUnit="FullRow">
                         <!-- Define columns for your data -->
-                        <DataGridTextColumn Binding="{Binding OrderId}" Header="№" Width="30"/>
-                        <DataGridTextColumn Binding="{Binding OrderDescription}" Header="Описание заказа" Width="200"/>
-                        <DataGridTextColumn Binding="{Binding Progress}" Header="Прогресс выполнения" Width="150"/>
-                        <!-- Add more columns as needed -->
-                    </DataGrid>
-                </Grid>
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Binding="{Binding Client.name}" Header="Имя заказчика" Width="Auto"/>
+                            <DataGridTextColumn Binding="{Binding Client.surname}" Header="Фамилия заказчика" Width="Auto"/>
+                            <DataGridTextColumn Binding="{Binding Client.telephone_number}" Header="Тел. заказчика" Width="Auto"/>
+                            <DataGridTextColumn Binding="{Binding Order.description}" Header="Описание" Width="Auto"/>
+                            <DataGridTextColumn Binding="{Binding Order.general_budget}" Header="Бюджет" Width="Auto"/>
+                            <!-- Add more columns as needed -->
+
+                            <!-- Buttons to add or reject orders -->
+                            <DataGridTemplateColumn Width="140">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button Content="Выполнил!" Command="{Binding DataContext.FinishedOrderCommand, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" CommandParameter="{Binding Path=Order.Id}"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                      </DataGrid>
+                    </Grid>
+                </Border>
             </TabItem>
+
+            <TabItem Width="Auto" >
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="\Icons\HistoryIcon.png" Width="20" Height="20" Margin="0,0,10,0"/>
+                        <TextBlock Text="История"/>
+                    </StackPanel>
+                </TabItem.Header>
+
+                <Grid Background="{StaticResource YourImageBrushKey}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="10*"/>
+                        <!--<RowDefinition Height="1*"/>-->
+                    </Grid.RowDefinitions>
+                    <DataGrid  Margin="50,0,50,50"  x:Name="HistoryGrid_Customer" 
+                               ItemsSource="{Binding HistoryOrdersForExecutor}"
+                               IsReadOnly="True" SelectionMode="Single" SelectionUnit="FullRow"
+                               AutoGenerateColumns="False">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Binding="{Binding Client.name}" Header="Имя заказчика" Width="Auto"/>
+                            <DataGridTextColumn Binding="{Binding Client.surname}" Header="Фамилия заказчика" Width="Auto"/>
+                            <DataGridTextColumn Binding="{Binding Client.telephone_number}" Header="Тел. заказчика" Width="Auto"/>
+                            <DataGridTextColumn Binding="{Binding Order.description}" Header="Описание" Width="Auto"/>
+                            <DataGridTextColumn Binding="{Binding Order.general_budget}" Header="Бюджет" Width="Auto"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <!--<Button Grid.Row="2" Content="Обновить" Command="{Binding HistoryCommand}" VerticalAlignment="Center"  Margin="50,0"/>-->
+                </Grid>
+
+            </TabItem>
+
         </TabControl>
     </DockPanel>
 </Window>

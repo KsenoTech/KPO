@@ -1,4 +1,5 @@
-﻿using Interfaces.DTO;
+﻿using DomainModel;
+using Interfaces.DTO;
 using System.Collections.Generic;
 
 namespace Services
@@ -19,6 +20,8 @@ namespace Services
         List<OrderDTO> GetInProgressOrders();
         OrderDTO MakeOrder(OrderDTO p);
         OrderDTO GetOrder(int orderrId);
+
+        void UpdetePosition(OrderDTO p, Position position);
           //void CreateOrderr(OrderrDTO p);
           //void UpdateOrderr(OrderrDTO p);
          void DeleteOrder(int id);

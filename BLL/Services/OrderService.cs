@@ -95,5 +95,16 @@ namespace BLL.Services
         {
             return db.Orders.GetList().Where(order => order.progress >= 0 && order.IsItFinished == false && order.canIdoIt == true).Select(i => new OrderDTO(i)).ToList();
         }
+
+        public void UpdetePosition(OrderDTO p, Position position)
+        {
+            Order order = db.Orders.GetItem(p.Id);
+
+            if (order != null)
+            {
+                order.OrderPosition = position;
+                db.Save();
+            }
+        }
     }
 }

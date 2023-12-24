@@ -39,7 +39,7 @@ namespace sheff.Views
             }      
             else
             {
-                window = new Window_Executor(orderService, ID_user); // EXecutor
+                window = new Window_Executor(orderService, clientService, executorService, ID_user); // EXecutor
                // window.Show();
             }
             window.Show();

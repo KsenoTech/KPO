@@ -21,6 +21,8 @@ namespace Interfaces.DTO
         public List<int> OrderedServiceIDs { get; set; }
         public bool IsItFinished { get; set; }
         public bool canIdoIt { get; set; }
+        public bool executionCondition { get; set; }
+        public Position OrderPosition { get; set; }
 
 
         public OrderDTO() { }
@@ -36,6 +38,7 @@ namespace Interfaces.DTO
             feedback_ID = order.feedback_ID;
             IsItFinished = order.IsItFinished;
             canIdoIt = order.canIdoIt;
+            OrderPosition = order.OrderPosition;
         }
     }
 }

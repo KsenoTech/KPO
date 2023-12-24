@@ -312,11 +312,11 @@
                     <DataGrid  Margin="50,0"  x:Name="InProgressGrid_Customer" ItemsSource="{Binding OrdersInProgress, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" >
                         <DataGrid.Columns>
                             <!--<DataGridTextColumn Binding="{Binding Id}" Header="№" Width="30"/>-->
-                            <DataGridTextColumn Binding="{Binding description}" Header="Описание" Width="70"/>
-                            <DataGridTextColumn Binding="{Binding progress}" Header="Прогресс" Width="70"/>
-                            <DataGridTextColumn Binding="{Binding IsItFinished}" Header="Закончен?" Width="100"/>
-                            <DataGridTextColumn Binding="{Binding canIdoIt}" Header="Взят ли мастером?" Width="130"/>
-                            <DataGridTextColumn Binding="{Binding general_budget}" Header="Итоговая стоимость" Width="70"/>
+                            <DataGridTextColumn Binding="{Binding description}" Header="Описание" Width="Auto"/>
+                            <DataGridTextColumn Binding="{Binding progress}" Header="Прогресс" Width="Auto"/>
+                            <DataGridTextColumn Binding="{Binding IsItFinished}" Header="Закончен?" Width="Auto"/>
+                            <DataGridTextColumn Binding="{Binding canIdoIt}" Header="Взят ли мастером?" Width="Auto"/>
+                            <DataGridTextColumn Binding="{Binding general_budget}" Header="Итоговая стоимость" Width="Auto"/>
                         </DataGrid.Columns>
                         <!--<CheckBox Content="{Binding canIdoIt}" IsChecked="{Binding canIdoIt}"/>-->
                         <!--<DataGridTemplateColumn Width="200">
@@ -349,11 +349,11 @@
                                AutoGenerateColumns="False">
                         <DataGrid.Columns>
                             <!--<DataGridTextColumn Binding="{Binding Id}" Header="№" Width="30"/>-->
-                            <DataGridTextColumn Binding="{Binding description}" Header="Описание" Width="70"/>
-                            <DataGridTextColumn Binding="{Binding progress}" Header="Прогресс" Width="70"/>
-                            <DataGridTextColumn Binding="{Binding IsItFinished}" Header="Закончен?" Width="100"/>
-                            <DataGridTextColumn Binding="{Binding canIdoIt}" Header="Взят ли мастером?" Width="130"/>
-                            <DataGridTextColumn Binding="{Binding general_budget}" Header="Итоговая стоимость" Width="70"/>
+                            <DataGridTextColumn Binding="{Binding description}" Header="Описание" Width="Auto"/>
+                            <DataGridTextColumn Binding="{Binding progress}" Header="Прогресс" Width="Auto"/>
+                            <DataGridTextColumn Binding="{Binding IsItFinished}" Header="Закончен?" Width="Auto"/>
+                            <DataGridTextColumn Binding="{Binding canIdoIt}" Header="Взят ли мастером?" Width="Auto"/>
+                            <DataGridTextColumn Binding="{Binding general_budget}" Header="Итоговая стоимость" Width="Auto"/>
                         </DataGrid.Columns>
 
                         <!--<DataGridTemplateColumn Width="200">

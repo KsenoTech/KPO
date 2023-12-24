@@ -83,7 +83,9 @@
     <Compile Include="Infrastructure\Commands\Base\Command.cs" />
     <Compile Include="Infrastructure\Commands\RelayCommand.cs" />
     <Compile Include="Models\Model_Client.cs" />
+    <Compile Include="Models\Model_Executor.cs" />
     <Compile Include="Models\Model_Order.cs" />
+    <Compile Include="Models\Model_OrderExecutorEntity.cs" />
     <Compile Include="Models\Model_Service.cs" />
     <Compile Include="Utils\NinjectRegistrations.cs" />
     <Compile Include="Utils\ReposModule.cs" />
@@ -155,6 +157,10 @@
     <ProjectReference Include="..\DAL\DAL.csproj">
       <Project>{eeb62807-53e1-43ea-9ac8-256360a6c949}</Project>
       <Name>DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DomainModel\DomainModel.csproj">
+      <Project>{16644628-ABAA-4F90-87D1-3D985885173C}</Project>
+      <Name>DomainModel</Name>
     </ProjectReference>
     <ProjectReference Include="..\Interfaces\Interfaces.csproj">
       <Project>{544c1fc4-c9d3-4b7d-9aaf-17fa928f3909}</Project>

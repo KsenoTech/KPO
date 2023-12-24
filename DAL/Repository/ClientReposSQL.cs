@@ -29,7 +29,7 @@ namespace DAL.Repository
 
         public Client GetItem(int id)
         {
-            throw new NotImplementedException();
+            return db.zcontextClient.Find(id);
         }
 
         public List<Client> GetList()

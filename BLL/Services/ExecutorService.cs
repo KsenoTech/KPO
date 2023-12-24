@@ -21,5 +21,9 @@ namespace BLL.Services
         {
             return db.Executors.GetList().Select(i => new ExecutorDTO(i)).ToList();
         }
+        public ExecutorDTO GetExecutor(int Id)
+        {
+            return new ExecutorDTO(db.Executors.GetItem(Id));
+        }
     }
 }

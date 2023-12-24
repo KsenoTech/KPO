@@ -14,12 +14,10 @@ namespace sheff.Views
     /// </summary>
     public partial class Window_Customer : Window
     {
-        private ViewModel_Customer loginViewModel;
         public Window_Customer(IOrderService orderService, int ID_user)
         {
            InitializeComponent();
-            loginViewModel = new ViewModel_Customer(this, orderService, ID_user);
-            this.DataContext = loginViewModel;
+            DataContext = new ViewModel_Customer(this, orderService, ID_user);
         }
 
         //private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)

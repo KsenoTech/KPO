@@ -5,11 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Interfaces.Services
+namespace sheff.Models
 {
-    public interface IExecutorService
+    public class Model_Executor
     {
-        List<ExecutorDTO> GetAllExecutors();
-        ExecutorDTO GetExecutor(int Id);
+        public ExecutorDTO Executor {get; set;}
     }
 }

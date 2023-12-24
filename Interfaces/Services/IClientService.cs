@@ -1,4 +1,5 @@
-﻿using Interfaces.DTO;
+﻿using DomainModel;
+using Interfaces.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,5 +13,6 @@ namespace Interfaces.Services
         List<ClientDTO> GetAllClients();
 
         ClientDTO GetClient(int Id);
+
     }
 }
