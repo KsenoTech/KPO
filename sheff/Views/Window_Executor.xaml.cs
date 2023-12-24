@@ -24,10 +24,10 @@ namespace sheff.Views
     /// </summary>
     public partial class Window_Executor : Window
     {
-        public Window_Executor(IOrderService orderService, IClientService clientService,IExecutorService executorService, int iD_user)
+        public Window_Executor(IOrderService orderService, IClientService eclientService,IExecutorService eexecutorService, int iD_user)
         {
             InitializeComponent();
-            DataContext = new ViewModel_Executor(orderService, clientService, executorService, iD_user);
+            DataContext = new ViewModel_Executor(this, orderService, eclientService, eexecutorService, iD_user);
             
         }
     }

@@ -35,11 +35,18 @@
                     </StackPanel>
                 </TabItem.Header>
                 <Border Background="{StaticResource YourImageBrushKey}">
+                    
                     <Grid>
-                    <!-- DataGrid to display orders from the database -->
-                    <DataGrid  Margin="50,0,50,50" AutoGenerateColumns="False" ItemsSource="{Binding AvailableOrdersForExecutor}" IsReadOnly="True" SelectionMode="Single" SelectionUnit="FullRow">
+                        <Button Panel.ZIndex="1" Grid.Row="2" Grid.Column="1" Content="Выход" Command="{Binding ExitFromAccauntCommand}" 
+                                 
+                                 VerticalAlignment="Bottom"/>
+                        <!-- DataGrid to display orders from the database  Style="{StaticResource MaterialDesignFlatButton}"-->
+                    <DataGrid  Margin="50,0,50,50" AutoGenerateColumns="False"
+                               ItemsSource="{Binding AvailableOrdersForExecutor}" 
+                               IsReadOnly="True" SelectionMode="Single" SelectionUnit="FullRow">
                         <!-- Define columns for your data -->
                         <DataGrid.Columns>
+                        
                         <DataGridTextColumn Binding="{Binding Client.name}" Header="Имя заказчика" Width="Auto"/>
                         <DataGridTextColumn Binding="{Binding Client.surname}" Header="Фамилия заказчика" Width="Auto"/>
                         <DataGridTextColumn Binding="{Binding Client.address}" Header="Адрес" Width="Auto"/>
@@ -77,100 +84,77 @@
                         <TextBlock Text="Профиль"/>
                     </StackPanel>
                 </TabItem.Header>
+                <ListBox ItemsSource="{Binding ProfileForExecutor}" HorizontalContentAlignment="Stretch"
+                         Background="{StaticResource YourImageBrushKey}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Border>
+                                <Grid Background="White" HorizontalAlignment="Center">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="2*"/>
+                                        <ColumnDefinition Width="2*"/>
+                                        <ColumnDefinition Width="2*"/>
+                                    </Grid.ColumnDefinitions>
 
-                <Border Background="{StaticResource YourImageBrushKey}">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="2*"/>
-                            <ColumnDefinition Width="2*"/>
-                            <ColumnDefinition Width="2*"/>
-                        </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="2*"/>
+                                        <RowDefinition Height="3*"/>
+                                    </Grid.RowDefinitions>
 
-                        <materialDesign:Card Grid.Column="1" Width="Auto" HorizontalAlignment="Stretch">
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="2*"/>
-                                    <RowDefinition Height="3*"/>
-                                    <RowDefinition Height="Auto"/>
-                                </Grid.RowDefinitions>
+                                    <Image Grid.Row="0" Grid.Column="1"
+	                                 Source="\Images\execu.png"
+	                                 Stretch="Uniform" Margin="10" />
 
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="1*"/>
-                                    <ColumnDefinition Width="1*"/>
-                                </Grid.ColumnDefinitions>
-
-                                <Image Grid.Row="0" Grid.ColumnSpan="2"
-	                              Source="\Images\execu.png"
-	                              Stretch="Uniform" Margin="10" />
-
-                                <Button
+                                    <Button
 	                              Grid.Row="0" Grid.Column="1"
-	                              Margin="0,0,16,-20"
+	                              Margin="0,0,16,-10"
 	                              HorizontalAlignment="Right"
 	                              VerticalAlignment="Bottom"
 	                              Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}">
-                                    <materialDesign:PackIcon Kind="InsertPhoto" />
-                                </Button>
+                                        <materialDesign:PackIcon Kind="InsertPhoto" />
+                                    </Button>
 
-                                <Viewbox Height="16" Grid.Row="1" Grid.Column="1"
-                                            VerticalAlignment="Top" Margin="0,25,0,0"
-                                             HorizontalAlignment="Left">
-                                    <materialDesign:RatingBar
+                                    <StackPanel Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" Margin="10">
+                                        <TextBlock Text="Фамилия: "  Foreground="Black"  Margin="0,10,0,0"/>
+                                        <TextBlock Text="Имя: "      Foreground="Black"  Margin="0,10,0,0"/>
+                                        <TextBlock Text="Отчество:"  Foreground="Black"  Margin="0,10,0,0"/>
+                                        <TextBlock Text="E-Mail: "   Foreground="Black"  Margin="0,10,0,0"/>
+                                        <TextBlock Text="Телефон:"   Foreground="Black"  Margin="0,10,0,0"/>
+                                        <TextBlock Text="Рейтинг: "  Foreground="Black"  Margin="0,10,0,0"/>
+                                        <TextBlock Text="Логин: "    Foreground="Black"  Margin="0,10,0,0"/>
+                                        <TextBlock Text="Пароль:"    Foreground="Black"  Margin="0,10,0,0"/>
+                                    </StackPanel>
+                                    <!--тут код из вк, прил1-->
+                                    <StackPanel  Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right" Margin ="0,10,0,30">
+                                        <Label Margin ="0,7,0,0" Content="{Binding Executor.surname}"/>
+                                        <Label Margin ="0,0,0,0" Content="{Binding Executor.name}"/>
+                                        <Label Margin ="0,4,0,0" Content="{Binding Executor.middle_name}" />
+                                        <Label Margin ="0,2,0,0" Content="{Binding Executor.e_mail}" />
+                                        <Label Margin ="0,0,0,0" Content="{Binding Executor.telephone_number}" />
+                                        <Viewbox Height="16" Grid.Row="1" Grid.Column="1"
+                                            VerticalAlignment="Top" 
+                                             HorizontalAlignment="Left" Margin="0,8,0,0">
+                                            <materialDesign:RatingBar
                                                 Foreground="Red"
                                                 Orientation="Horizontal"
-                                                Value="4" />
-                                    <!--Value="{Binding rating}" />-->
-                                </Viewbox>
-
-                                <StackPanel Grid.Row="1" Grid.ColumnSpan="1" Margin="8,20,8,0">
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBlock Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
-                                                   Text="Заказчик"/>
+                                                Value="{Binding Executor.rating}" />
+                                        </Viewbox>
+                                        <Label Margin ="0,7,0,0" Content="{Binding Executor.login}" />
+                                        <Label Margin ="0,2,0,0" Content="{Binding Executor.password }" />
                                     </StackPanel>
-                                    <TextBlock Text="Фамилия: "  Foreground="Black"  Margin="0,20,0,0"/>
-                                    <TextBlock Text="Имя: "      Foreground="Black"  Margin="0,10,0,0"/>
-                                    <TextBlock Text="Отчество:"  Foreground="Black"  Margin="0,10,0,0"/>
-                                    <TextBlock Text="E-Mail: "   Foreground="Black"  Margin="0,10,0,0"/>
-                                    <TextBlock Text="Телефон:"  Foreground="Black"   Margin="0,10,0,0"/>
-                                    <TextBlock Text="Адрес: "    Foreground="Black"  Margin="0,10,0,0"/>
-                                    <TextBlock Text="Логин: "    Foreground="Black"  Margin="0,10,0,0"/>
-                                    <TextBlock Text="Пароль:"   Foreground="Black"   Margin="0,10,0,0"/>
-                                </StackPanel>
 
-                                <ListView ItemsSource="{Binding ProfileForExecutor}"   Grid.Row="1" Grid.Column="1" Margin="0,40,0,0">
-                                    <!--<ListView.ItemTemplate>
-                                    <DataTemplate>
-                                    <ViewCell>
-                                        <ViewCell.View>
-                                            <Label  Text="{Binding Exec}" />
-                                    </ViewCell.View>
-                                        </ViewCell>
-                                        </DataTemplate>
-                                        </ListView.ItemTemplate>-->
                                     
-                                            <Label  Content="{Binding name}" />
-                                    <Label  Content="{Binding middle-name}" />
-                                    <Label  Content="{Binding e_mail}" />
-
-                                    <Label  Content="{Binding telephone_numbe}" />
-                                    <Label  Content="{Binding address}" />
-                                    <Label  Content="{Binding login}" />
-                                    <Label  Content="{Binding password }" />
-                                </ListView>
-
-                                <Button  Grid.Row="1" Grid.Column="0" Content="Выход" Command="{Binding ExitFromAccauntCommandommand}" 
-                                         Style="{StaticResource MaterialDesignFlatButton}"
-                                         VerticalAlignment="Bottom"/>
-                                <Button  Grid.Row="1" Grid.Column="1" Content="Обновить" Command="{Binding UpdateProfileCommand}" 
-                                         Style="{StaticResource MaterialDesignFlatButton}"
-                                         VerticalAlignment="Bottom"/>
-                            </Grid>
-                        </materialDesign:Card>
-                    </Grid>
-                </Border>
+                                        <Button Panel.ZIndex="1" Grid.Row="2" Grid.Column="1" Content="Выход" Command="{Binding ExitFromAccauntCommand}" 
+                                 Style="{StaticResource MaterialDesignFlatButton}"
+                                 VerticalAlignment="Bottom"/>
+                                    
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
             </TabItem>
 
-            <!-- Tab for Orders in Progress -->
             <TabItem Width="Auto">
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
@@ -178,29 +162,29 @@
                         <TextBlock Text="Заказы в процессе"/>
                     </StackPanel>
                 </TabItem.Header>
-                <Border Background="{StaticResource YourImageBrushKey}">
+
+                        <Border Background="{StaticResource YourImageBrushKey}">
                     <Grid>
-                     <!-- DataGrid to display orders in progress with a field for entering progress -->
                         <DataGrid  Margin="50,0,50,50" AutoGenerateColumns="False" 
                                    ItemsSource="{Binding AplliedOrdersForExecutor}" 
                                    IsReadOnly="True" SelectionMode="Single" SelectionUnit="FullRow">
-                        <!-- Define columns for your data -->
-                        <DataGrid.Columns>
-                            <DataGridTextColumn Binding="{Binding Client.name}" Header="Имя заказчика" Width="Auto"/>
-                            <DataGridTextColumn Binding="{Binding Client.surname}" Header="Фамилия заказчика" Width="Auto"/>
-                            <DataGridTextColumn Binding="{Binding Client.telephone_number}" Header="Тел. заказчика" Width="Auto"/>
-                            <DataGridTextColumn Binding="{Binding Order.description}" Header="Описание" Width="Auto"/>
-                            <DataGridTextColumn Binding="{Binding Order.general_budget}" Header="Бюджет" Width="Auto"/>
-                            <!-- Add more columns as needed -->
-
-                            <!-- Buttons to add or reject orders -->
-                            <DataGridTemplateColumn Width="140">
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <Button Content="Выполнил!" Command="{Binding DataContext.FinishedOrderCommand, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" CommandParameter="{Binding Path=Order.Id}"/>
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
-                            </DataGridTemplateColumn>
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Binding="{Binding Client.name}" Header="Имя заказчика" Width="Auto"/>
+                                <DataGridTextColumn Binding="{Binding Client.surname}" Header="Фамилия заказчика" Width="Auto"/>
+                                <DataGridTextColumn Binding="{Binding Client.telephone_number}" Header="Тел. заказчика" Width="Auto"/>
+                                <DataGridTextColumn Binding="{Binding Order.description}" Header="Описание" Width="Auto"/>
+                                <DataGridTextColumn Binding="{Binding Order.general_budget}" Header="Бюджет" Width="Auto"/>
+                                
+                                <DataGridTemplateColumn Width="140">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Button Content="Выполнил!" 
+                                                    Command="{Binding DataContext.FinishedOrderCommand, 
+                                                              RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" 
+                                                    CommandParameter="{Binding Path=Order.Id}"/>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
                         </DataGrid.Columns>
                       </DataGrid>
                     </Grid>
@@ -214,27 +198,26 @@
                         <TextBlock Text="История"/>
                     </StackPanel>
                 </TabItem.Header>
+                <Border Background="{StaticResource YourImageBrushKey}">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="10*"/>
+                        </Grid.RowDefinitions>
 
-                <Grid Background="{StaticResource YourImageBrushKey}">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="10*"/>
-                        <!--<RowDefinition Height="1*"/>-->
-                    </Grid.RowDefinitions>
-                    <DataGrid  Margin="50,0,50,50"  x:Name="HistoryGrid_Customer" 
-                               ItemsSource="{Binding HistoryOrdersForExecutor}"
-                               IsReadOnly="True" SelectionMode="Single" SelectionUnit="FullRow"
-                               AutoGenerateColumns="False">
-                        <DataGrid.Columns>
-                            <DataGridTextColumn Binding="{Binding Client.name}" Header="Имя заказчика" Width="Auto"/>
-                            <DataGridTextColumn Binding="{Binding Client.surname}" Header="Фамилия заказчика" Width="Auto"/>
-                            <DataGridTextColumn Binding="{Binding Client.telephone_number}" Header="Тел. заказчика" Width="Auto"/>
-                            <DataGridTextColumn Binding="{Binding Order.description}" Header="Описание" Width="Auto"/>
-                            <DataGridTextColumn Binding="{Binding Order.general_budget}" Header="Бюджет" Width="Auto"/>
-                        </DataGrid.Columns>
-                    </DataGrid>
-                    <!--<Button Grid.Row="2" Content="Обновить" Command="{Binding HistoryCommand}" VerticalAlignment="Center"  Margin="50,0"/>-->
-                </Grid>
-
+                        <DataGrid  Margin="50,0,50,50"  x:Name="HistoryGrid_Customer" 
+                                   ItemsSource="{Binding HistoryOrdersForExecutor}"
+                                   IsReadOnly="True" SelectionMode="Single" SelectionUnit="FullRow"
+                                   AutoGenerateColumns="False">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Binding="{Binding Client.name}" Header="Имя заказчика" Width="Auto"/>
+                                <DataGridTextColumn Binding="{Binding Client.surname}" Header="Фамилия заказчика" Width="Auto"/>
+                                <DataGridTextColumn Binding="{Binding Client.telephone_number}" Header="Тел. заказчика" Width="Auto"/>
+                                <DataGridTextColumn Binding="{Binding Order.description}" Header="Описание" Width="Auto"/>
+                                <DataGridTextColumn Binding="{Binding Order.general_budget}" Header="Бюджет" Width="Auto"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Grid>
+                </Border>
             </TabItem>
 
         </TabControl>

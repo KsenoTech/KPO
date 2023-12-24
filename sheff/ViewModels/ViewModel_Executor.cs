@@ -2,10 +2,12 @@
 using DomainModel;
 using Interfaces.DTO;
 using Interfaces.Services;
+using Ninject;
 using Services;
 using sheff.Infrastructure.Commands;
 using sheff.Models;
 using sheff.ViewModels.Base;
+using sheff.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -18,6 +20,21 @@ namespace sheff.ViewModels
 {
     public class ViewModel_Executor : ViewModel
     {
+        private ICommand _exitFromAccauntCommand;
+
+        public ICommand ExitFromAccauntCommand
+        {
+            get { return _exitFromAccauntCommand ?? (_exitFromAccauntCommand = new RelayCommand(Back)); }
+        }
+        private readonly Window_Executor _wnd;
+        private void Back(object obj)
+        {
+            IOrderService orderService = App.Kernel.Get<IOrderService>();
+            Login_Reg_Window loginRegWindow = new Login_Reg_Window();
+            loginRegWindow.Show();
+            _wnd.Close();
+        }
+
         private int _id = 0;
         public ObservableCollection<Model_OrderExecutorEntity> AvailableOrdersForExecutor { get; set; }
         public ObservableCollection<Model_OrderExecutorEntity> AplliedOrdersForExecutor { get; set; }
@@ -25,8 +42,8 @@ namespace sheff.ViewModels
         public ObservableCollection<Model_Executor> ProfileForExecutor { get; set; }
 
         private readonly IOrderService _orderService;
-        private readonly IClientService _clientService;
-        private readonly IExecutorService _executorService;
+        private readonly IClientService _clientService = null;
+        private readonly IExecutorService _executorService = null;
 
         private List<OrderDTO> orderDTOs;
         private List<ExecutorDTO> execDTOs;
@@ -61,17 +78,19 @@ namespace sheff.ViewModels
             }
         }
 
-        public ViewModel_Executor (IOrderService orderService, IClientService clientService, IExecutorService executorService, int ID_user)
+        public ViewModel_Executor (Window_Executor thisWindow, IOrderService orderService, IClientService clientService, IExecutorService executorService, int ID_user)
         {
+            _wnd = thisWindow;
             _id = ID_user;
             _orderService = orderService;
             _clientService = clientService;
             _executorService = executorService;
 
-            LoadProfile();
+            
             LoadAllOrders();
             LoadApplied();
             LoadHistory();
+            LoadProfile();
 
             AddOrderCommand = new RelayCommand(param => AddOrder((int)param), null);
             RejectOrderCommand = new RelayCommand(param => RejectOrder((int)param), null);
@@ -114,7 +133,7 @@ namespace sheff.ViewModels
             }
 
 
-            //execDTOs = _executorService.GetExecutor(_id);
+            //var r = _executorService.GetExecutor(_id); //execDTOs - List<ViewModel_Executor>
 
             execDTOs = _executorService.GetAllExecutors().Where(x => x.Id == _id).ToList();
 
@@ -122,7 +141,7 @@ namespace sheff.ViewModels
             {
                 Model_Executor temp = new Model_Executor();
                 temp.Executor = _executorService.GetExecutor(emp.Id);
-                ProfileForExecutor.Add(temp);
+                ProfileForExecutor.Add(temp); // temp - Model_Executor
             }
         }
 
@@ -141,7 +160,7 @@ namespace sheff.ViewModels
 
             }
 
-            orderDTOs = _orderService.GetAllOrders().Where(x => x.OrderPosition == Position.InProgress).ToList();
+            orderDTOs = _orderService.GetAllOrders().Where(x => x.OrderPosition == Position.InProgress && x.Id == _id).ToList();
 
             foreach (OrderDTO emp in orderDTOs)
             {

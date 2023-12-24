@@ -14,12 +14,13 @@ namespace sheff.Views
     public partial class Login_Reg_Window : Window
     {
         private ViewModel_Login_Reg viewModel;
-        IClientService clientService = App.Kernel.Get<IClientService>();
-        IExecutorService executorService = App.Kernel.Get<IExecutorService>();
+        IClientService clientService1 = App.Kernel.Get<IClientService>();
+        IExecutorService executorService1 = App.Kernel.Get<IExecutorService>();
+
         public Login_Reg_Window()
         {
             InitializeComponent();
-            viewModel = new ViewModel_Login_Reg(this, executorService, clientService);
+            viewModel = new ViewModel_Login_Reg(this, executorService1, clientService1);
             DataContext = viewModel;
 
         }
@@ -33,15 +34,16 @@ namespace sheff.Views
             Window window = null;
             if (user)
             {
-                window = new Window_Customer(orderService, ID_user); //Customer
+                window = new Window_Customer(orderService, clientService1, ID_user); //Customer
                 //Application.Current.MainWindow = window;
                // window.Show();
             }      
             else
             {
-                window = new Window_Executor(orderService, clientService, executorService, ID_user); // EXecutor
+                window = new Window_Executor(orderService, clientService1, executorService1, ID_user); // EXecutor
                // window.Show();
             }
+            ID_user = 0;
             window.Show();
             this.Close();
         }

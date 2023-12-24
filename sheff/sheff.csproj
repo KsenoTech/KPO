@@ -83,6 +83,7 @@
     <Compile Include="Infrastructure\Commands\Base\Command.cs" />
     <Compile Include="Infrastructure\Commands\RelayCommand.cs" />
     <Compile Include="Models\Model_Client.cs" />
+    <Compile Include="Models\Model_Customer.cs" />
     <Compile Include="Models\Model_Executor.cs" />
     <Compile Include="Models\Model_Order.cs" />
     <Compile Include="Models\Model_OrderExecutorEntity.cs" />

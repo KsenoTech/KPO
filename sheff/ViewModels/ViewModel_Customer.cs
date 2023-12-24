@@ -1,4 +1,5 @@
 ﻿
+using BLL.Services;
 using Interfaces.DTO;
 using Interfaces.Services;
 using MaterialDesignThemes.Wpf;
@@ -10,6 +11,7 @@ using sheff.ViewModels.Base;
 using sheff.Views;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Windows.Input;
@@ -18,18 +20,20 @@ namespace sheff.ViewModels
 {
     public class ViewModel_Customer : ViewModel
     {
+        public ObservableCollection<Model_Customer> ProfileForCustomer { get; set; }
+        private List<ClientDTO> clientDTOs;
 
-        public ViewModel_Order SubVM_Order { get; set; }
+        //public ViewModel_Order SubVM_Order { get; set; }
 
-        public ViewModel_Customer()
-        {
-            SubVM_Order = new ViewModel_Order(_orderService);
-        }
+        //public ViewModel_Customer()
+        //{
+        //    SubVM_Order = new ViewModel_Order(_orderService);
+        //}
 
         private readonly IOrderService _orderService;
-        private readonly IClientService _clientService;
+        private readonly IClientService _clientService = null;
         private readonly Window_Customer _wnd;
-        private int _id;
+        private int _id = 0;
 
         private ICommand _exitFromAccauntCommand;
 
@@ -153,9 +157,11 @@ namespace sheff.ViewModels
                 if (!Set(ref _ordersForMakeOrder, value)) return;
             }
         }
-        public ViewModel_Customer(Window_Customer thisWindow, IOrderService orderService, int ID_user) 
+        public ViewModel_Customer(Window_Customer thisWindow, IOrderService orderService, IClientService clientService,  int ID_user) 
         {
+            LoadProfile();
             _orderService = orderService;
+            _clientService = clientService;
             HistoryCommand = new RelayCommand(SearchFinishedOrders);
             InProgressCommand = new RelayCommand(SearchInProgressOrders);
             //_ordersForMakeOrder = ConvertDataOrderView(_orderService.GetFinishedOrders());
@@ -169,7 +175,27 @@ namespace sheff.ViewModels
             StartDate = new DateTime(2023, 12, 20);
             EndDate = new DateTime(2023, 12, 31);
         }
+        private void LoadProfile()
+        {
+            if (ProfileForCustomer == null)
+            {
+                ProfileForCustomer = new ObservableCollection<Model_Customer>();
+            }
+            else
+            {
+                ProfileForCustomer.Clear();
 
+            }
+
+           clientDTOs = _clientService.GetAllClients().Where(x => x.Id == _id).ToList();
+
+            foreach (ClientDTO emp in clientDTOs)
+            {
+                Model_Customer temp = new Model_Customer();
+                temp.Customer = _clientService.GetClient(emp.Id);
+                ProfileForCustomer.Add(temp); // temp - Model_Executor
+            }
+        }
         private List<ViewModel_Service> GetDataFromDatabase()
         {
             // Здесь вам нужно выполнить операции для получения данных из базы данных

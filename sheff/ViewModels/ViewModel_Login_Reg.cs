@@ -39,11 +39,11 @@ namespace sheff.ViewModels
             }
         }
 
-        public ViewModel_Login_Reg(Login_Reg_Window wnd, IExecutorService executorService, IClientService clientService)
+        public ViewModel_Login_Reg(Login_Reg_Window wnd, IExecutorService qexecutorService, IClientService qclientService)
         {
             _window = wnd;
-            _executorService = executorService;
-            _clientService = clientService;
+            _executorService = qexecutorService;
+            _clientService = qclientService;
             OpenNextWindowCommand = new RelayCommand(OpenNextWindow);
         }
 

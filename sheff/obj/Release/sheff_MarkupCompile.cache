@@ -4,16 +4,16 @@
 winexe
 C#
 .cs
-C:\LEEV\UNIVER\3_course-1_term\Конструирование ПО\KURSACH\sheff\obj\Debug\
+C:\LEEV\UNIVER\3_course-1_term\Конструирование ПО\KURSACH\sheff\obj\Release\
 sheff
 none
 false
-DEBUG;TRACE
+TRACE
 C:\LEEV\UNIVER\3_course-1_term\Конструирование ПО\KURSACH\sheff\App.xaml
 3-345946422
 
-25781673655
-25-1786457291
+24-1431205023
+2533230309
 Views\Login_Reg_Window.xaml;Views\Window_Customer.xaml;Views\Window_Executor.xaml;
 
 True

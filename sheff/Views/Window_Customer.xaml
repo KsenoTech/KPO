@@ -55,8 +55,8 @@
 
 
                         <!-- Календарь -->
-                        <Calendar SelectedDate="{Binding SelectedDate}" DisplayDateStart="{Binding Today}">
-
+                        <Calendar >
+                            <!--SelectedDate="{Binding SelectedDate}" DisplayDateStart="{Binding Today}"-->
                             <!--<CalendarDateRange Start="{Binding StartDate}" End="{Binding EndDate}" />-->
 
                             <Calendar.BlackoutDates>
@@ -174,19 +174,7 @@
 
                         <Label Grid.Row="2" Content="s" VerticalContentAlignment="Top" />
                         <Label Grid.Row="2"/>
-                        <Label Grid.Row="2"/>
-                        <Label Grid.Row="2"/>
-                        <Label Grid.Row="2"/>
-                        <Label Grid.Row="2"/>
-                        <Label Grid.Row="2"/>
-                        <Label Grid.Row="2"/>
-                        <Label Grid.Row="2"/>
-                        <Label Grid.Row="2"/>
-                        <Label Grid.Row="2"/>
-                        <Label Grid.Row="2"/>
-                        <Label Grid.Row="2"/>
-                        <Label Grid.Row="2"/>
-                        <Label Grid.Row="2"/>
+                                          
                     </DataGrid>
                     
                     <TextBox  materialDesign:HintAssist.Hint="Описание ремонта:" Grid.Row="2" 
@@ -211,88 +199,68 @@
                     </StackPanel>
                 </TabItem.Header>
 
-                <Border Background="{StaticResource YourImageBrushKey}">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="2*"/>
-                            <ColumnDefinition Width="2*"/>
-                            <ColumnDefinition Width="2*"/>
-                        </Grid.ColumnDefinitions>
+                <ListBox ItemsSource="{Binding ProfileForCustomer}" HorizontalContentAlignment="Stretch"
+                         Background="{StaticResource YourImageBrushKey}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Border>
+                                <Grid Background="White" HorizontalAlignment="Center">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="2*"/>
+                                        <ColumnDefinition Width="2*"/>
+                                        <ColumnDefinition Width="2*"/>
+                                    </Grid.ColumnDefinitions>
 
-                        <materialDesign:Card Grid.Column="1" Width="Auto" HorizontalAlignment="Stretch">
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="2*"/>
-                                    <RowDefinition Height="3*"/>
-                                    <RowDefinition Height="Auto"/>
-                                </Grid.RowDefinitions>
-                                
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="1*"/>
-                                    <ColumnDefinition Width="1*"/>
-                                </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="2*"/>
+                                        <RowDefinition Height="3*"/>
+                                    </Grid.RowDefinitions>
 
-                                <Image Grid.Row="0" Grid.ColumnSpan="2"
-	                              Source="\Images\client.png"
-	                              Stretch="Uniform" />
+                                    <Image Grid.Row="0" Grid.Column="1"
+	                                 Source="\Images\execu.png"
+	                                 Stretch="Uniform" Margin="10" />
 
-                                <Button
+                                    <Button
 	                              Grid.Row="0" Grid.Column="1"
-	                              Margin="0,0,16,-20"
+	                              Margin="0,0,16,-10"
 	                              HorizontalAlignment="Right"
 	                              VerticalAlignment="Bottom"
 	                              Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}">
-                                    <materialDesign:PackIcon Kind="InsertPhoto" />
-                                </Button>
+                                        <materialDesign:PackIcon Kind="InsertPhoto" />
+                                    </Button>
 
-                                <Viewbox Height="16" Grid.Row="1" Grid.Column="1"
-                                            VerticalAlignment="Top" Margin="0,25,0,0"
-                                             HorizontalAlignment="Left">
-                                    <materialDesign:RatingBar
-                                                Foreground="Red"
-                                                Orientation="Horizontal"
-                                                Value="4" />
-                                    <!--Value="{Binding rating}" />-->
-                                </Viewbox>
-                                
-                                <StackPanel Grid.Row="1" Grid.ColumnSpan="1" Margin="8,20,8,0">
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBlock Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
-                                                   Text="Заказчик"/>
+                                    <StackPanel Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" Margin="10">
+                                        <TextBlock Text="Фамилия: "  Foreground="Black"  Margin="0,10,0,0"/>
+                                        <TextBlock Text="Имя: "      Foreground="Black"  Margin="0,10,0,0"/>
+                                        <TextBlock Text="Отчество:"  Foreground="Black"  Margin="0,10,0,0"/>
+                                        <TextBlock Text="E-Mail: "   Foreground="Black"  Margin="0,10,0,0"/>
+                                        <TextBlock Text="Телефон:"   Foreground="Black"  Margin="0,10,0,0"/>
+                                        <TextBlock Text="Адресс : "  Foreground="Black"  Margin="0,10,0,0"/>
+                                        <TextBlock Text="Логин: "    Foreground="Black"  Margin="0,10,0,0"/>
+                                        <TextBlock Text="Пароль:"    Foreground="Black"  Margin="0,10,0,0"/>
                                     </StackPanel>
-                                    <TextBlock Text="Фамилия: "  Foreground="Black"  Margin="0,20,0,0"/>
-                                    <TextBlock Text="Имя: "      Foreground="Black"  Margin="0,12,0,0"/>
-                                    <TextBlock Text="Отчество:"  Foreground="Black"  Margin="0,12,0,0"/>
-                                    <TextBlock Text="E-Mail: "   Foreground="Black"  Margin="0,12,0,0"/>
-                                     <TextBlock Text="Телефон:"  Foreground="Black"  Margin="0,12,0,0"/>
-                                    <TextBlock Text="Адрес: "    Foreground="Black"  Margin="0,12,0,0"/>
-                                    <TextBlock Text="Логин: "    Foreground="Black"  Margin="0,12,0,0"/>
-                                     <TextBlock Text="Пароль:"   Foreground="Black"  Margin="0,12,0,0"/>
-                                </StackPanel>
+                                    <!--тут код из вк, прил1-->
+                                    <StackPanel  Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right" Margin ="0,10,0,30">
+                                        <Label Margin ="0,7,0,0" Content="{Binding Customer.surname}"/>
+                                        <Label Margin ="0,0,0,0" Content="{Binding Customer.name}"/>
+                                        <Label Margin ="0,4,0,0" Content="{Binding Customer.middle_name}" />
+                                        <Label Margin ="0,2,0,0" Content="{Binding Customer.e_mail}" />
+                                        <Label Margin ="0,0,0,0" Content="{Binding Customer.telephone_number}" />
+                                        <Label Margin ="0,0,0,0" Content="{Binding Customer.addess}" />
+                                        <Label Margin ="0,7,0,0" Content="{Binding Customer.login}" />
+                                        <Label Margin ="0,2,0,0" Content="{Binding Customer.password }" />
+                                    </StackPanel>
 
-                                <ListBox ItemsSource="{Binding Profile}"   Grid.Row="1" Grid.Column="1" Margin="0,40,0,0">
 
-                                    <Label  Content="{Binding sername,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
-                                    <Label  Content="{Binding name,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
-                                    <Label  Content="{Binding middle-name,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
-                                    <Label  Content="{Binding e_mail,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
+                                    <Button Panel.ZIndex="1" Grid.Row="2" Grid.Column="1" Content="Выход" Command="{Binding ExitFromAccauntCommand}" 
+                                 Style="{StaticResource MaterialDesignFlatButton}"
+                                 VerticalAlignment="Bottom"/>
 
-                                    <Label  Content="{Binding telephone_number,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
-                                    <Label  Content="{Binding address,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
-                                    <Label  Content="{Binding login,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
-                                    <Label  Content="{Binding password ,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
-                                </ListBox>
-                                
-                                <Button  Grid.Row="1" Grid.Column="0" Content="Выход" Command="{Binding ExitFromAccauntCommandommand}" 
-                                         Style="{StaticResource MaterialDesignFlatButton}"
-                                         VerticalAlignment="Bottom"/>
-                                <Button  Grid.Row="1" Grid.Column="1" Content="Обновить" Command="{Binding UpdateProfileCommand}" 
-                                         Style="{StaticResource MaterialDesignFlatButton}"
-                                         VerticalAlignment="Bottom"/>
-                            </Grid>
-                        </materialDesign:Card>
-                    </Grid>
-                </Border>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
             </TabItem>
 
 
