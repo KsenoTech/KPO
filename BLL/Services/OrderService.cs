@@ -191,7 +191,22 @@ namespace BLL.Services
             db.Orders.Create(order);
             
         }
-        
+        public void CreateOrderWithService(OrderDTO dTO, int _id)
+        {
+            Order order = new Order();
+            order.OrderPosition = Position.InProgress;
+            order.client_ID = _id;
+            //order.Feedback = 1;
+            order.IsItFinished = false;
+            order.canIdoIt = false;
+            order.progress = 0;
+            order.description = dTO.description;
+            order.general_budget = dTO.general_budget;
+            order.time_order = DateTime.Now;
+            db.Orders.Create(order);
+
+            db.Save();
+        }
         public void CreateServiceWithService( string descript, int summ, int _id)
         {
             Order order = new Order();

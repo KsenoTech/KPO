@@ -179,46 +179,61 @@ namespace sheff.ViewModels
         }
      
         public Model_Order Model_PushOrderFOR { get; set; }
+        //public void Save(object os)
+        //{
+
+        //        try
+        //        {
+
+        //                if (Model_PushOrderFOR == null)
+        //                {
+        //                    Model_PushOrderFOR = new Model_Order();
+        //                }
+        //                else
+        //                {
+        //                    //Model_PushOrderFOR.Clear();
+        //                }
+
+        //                //orderDTOs = _clientService.GetAllClients().Where(x => x.Id == _id).ToList();
+
+
+        //                OrderDTO temp = new OrderDTO();
+        //                temp.general_budget = TotalCostS;
+        //                temp.description = DopDescription;
+
+        //                _orderService.CreateOrderWithService(temp, DopDescription, TotalCostS, _id);
+        //                //_orderService.CreateServiceWithService(DopDescription, TotalCostS, _id);
+        //                MessageBox.Show("Запись успешно добавлено в бд");
+        //                TotalCostS = 0;
+        //                DopDescription = "";
+
+        //                //_employeeService.UpdateEmployee(Model_PushOrderFOR);
+        //                //MessageBox.Show("Проблэма");
+
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            MessageBox.Show("Возникли ошибки при запросе в бд" + ex.Message);
+        //        }
+        //        finally
+        //        {
+        //            LoadAllTServices();
+        //        }
+        //}
         public void Save(object os)
         {
+            OrderDTO temp = new OrderDTO();
+            temp.general_budget = TotalCostS;
+            temp.description = DopDescription;
 
-                try
-                {
-
-                        if (Model_PushOrderFOR == null)
-                        {
-                            Model_PushOrderFOR = new Model_Order();
-                        }
-                        else
-                        {
-                            //Model_PushOrderFOR.Clear();
-                        }
-
-                        //orderDTOs = _clientService.GetAllClients().Where(x => x.Id == _id).ToList();
-                        
-                        
-                        OrderDTO temp = new OrderDTO();
-                        temp.general_budget = TotalCostS;
-                        temp.description = DopDescription;
-                        
-                        _orderService.CreateOrderWithService(temp, DopDescription, TotalCostS, _id);
-                        //_orderService.CreateServiceWithService(DopDescription, TotalCostS, _id);
-                        MessageBox.Show("Запись успешно добавлено в бд");
-                        TotalCostS = 0;
-                        DopDescription = "";
-
-                        //_employeeService.UpdateEmployee(Model_PushOrderFOR);
-                        //MessageBox.Show("Проблэма");
-
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Возникли ошибки при запросе в бд" + ex.Message);
-                }
-                finally
-                {
-                    LoadAllTServices();
-                }
+            //_id = 1;
+            _orderService.CreateOrderWithService(temp, _id);
+            MessageBox.Show("Запись успешно добавлено в бд");
+            TotalCostS = 0;
+            Metrahg2 = 0;
+            Metrahg = 0;
+            DopDescription = "";
+            LoadAllTServices();
         }
 
         public void LoadAllTServices()

@@ -33,7 +33,7 @@ namespace Services
           //void CreateOrderr(OrderrDTO p);
           //void UpdateOrderr(OrderrDTO p);
          void DeleteOrder(int id);
-
+        void CreateOrderWithService(OrderDTO dTO, int _id);
         //List<ExecutorDTO> GetTypes();
     }
 }

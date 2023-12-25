@@ -68,9 +68,9 @@
 
                     </Grid>
 
-                    <Grid Grid.Column="1"  Grid.Row="2" VerticalAlignment="Bottom" HorizontalAlignment="Center">
+                    <!--<Grid Grid.Column="1"  Grid.Row="2" VerticalAlignment="Bottom" HorizontalAlignment="Center">
                         <TextBlock Text="Огромная благодарность: Абрамову Артёму, Ефремову Александру" TextWrapping="Wrap" HorizontalAlignment="Right" Width="150"/>
-                    </Grid>
+                    </Grid>-->
 
                     <Grid Grid.Column="2" Grid.RowSpan="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
                         <materialDesign:DialogHost DialogTheme="Inherit">
