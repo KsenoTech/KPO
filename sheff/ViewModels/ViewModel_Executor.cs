@@ -82,7 +82,7 @@ namespace sheff.ViewModels
 
 
 
-        public ViewModel_Executor (Window_Executor thisWindow, IOrderService orderService, IClientService clientService, IExecutorService executorService, int ID_user)
+        public ViewModel_Executor (Window_Executor thisWindow, IOrderService orderService, IClientService clientService, IExecutorService executorService, ITServiceService itService1, int ID_user)
         {
             _wnd = thisWindow;
             _id = ID_user;
@@ -136,16 +136,13 @@ namespace sheff.ViewModels
 
             }
 
-
-            //var r = _executorService.GetExecutor(_id); //execDTOs - List<ViewModel_Executor>
-
             execDTOs = _executorService.GetAllExecutors().Where(x => x.Id == _id).ToList();
 
             foreach (ExecutorDTO emp in execDTOs)
             {
                 Model_Executor temp = new Model_Executor();
                 temp.Executor = _executorService.GetExecutor(emp.Id);
-                ProfileForExecutor.Add(temp); // temp - Model_Executor
+                ProfileForExecutor.Add(temp);
             }
         }
 

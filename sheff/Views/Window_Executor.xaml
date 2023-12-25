@@ -4,7 +4,10 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:sheff.Views"
-        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" xmlns:viewmodels="clr-namespace:sheff.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:ViewModel_Executor}"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
+        xmlns:viewmodels="clr-namespace:sheff.ViewModels" 
+        
+        d:DataContext="{d:DesignInstance Type=viewmodels:ViewModel_Executor}"
         mc:Ignorable="d"
         Title="Шеф-Построит! - Исполнитель"
         Height="620" Width="820"
@@ -26,25 +29,20 @@
     <DockPanel>
         <TabControl Width="Auto">
 
-            <!-- Tab for Viewing Orders -->
             <TabItem Width="Auto">
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
                         <Image Source="\Icons\OrderIcon.png" Width="20" Height="20" Margin="0,0,10,0"/>
-                        <TextBlock Text="Просмотр заказов"/>
+                        <TextBlock Text="Заявки"/>
                     </StackPanel>
                 </TabItem.Header>
+
                 <Border Background="{StaticResource YourImageBrushKey}">
-                    
                     <Grid>
-                        <Button Panel.ZIndex="1" Grid.Row="2" Grid.Column="1" Content="Выход" Command="{Binding ExitFromAccauntCommand}" 
-                                 
-                                 VerticalAlignment="Bottom"/>
-                        <!-- DataGrid to display orders from the database  Style="{StaticResource MaterialDesignFlatButton}"-->
-                    <DataGrid  Margin="50,0,50,50" AutoGenerateColumns="False"
+                        <DataGrid  Margin="50,0,50,50" AutoGenerateColumns="False"
                                ItemsSource="{Binding AvailableOrdersForExecutor}" 
                                IsReadOnly="True" SelectionMode="Single" SelectionUnit="FullRow">
-                        <!-- Define columns for your data -->
+
                         <DataGrid.Columns>
                         
                         <DataGridTextColumn Binding="{Binding Client.name}" Header="Имя заказчика" Width="Auto"/>
@@ -53,13 +51,14 @@
                         <DataGridTextColumn Binding="{Binding Client.telephone_number}" Header="Тел. заказчика" Width="Auto"/>
                         <DataGridTextColumn Binding="{Binding Order.description}" Header="Описание" Width="Auto"/>
                         <DataGridTextColumn Binding="{Binding Order.general_budget}" Header="Бюджет" Width="Auto"/>
-                        <!-- Add more columns as needed -->
 
-                        <!-- Buttons to add or reject orders -->
                         <DataGridTemplateColumn Width="130">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                        <Button Content="Добавить" CommandParameter="{Binding Path=Order.Id}" Command="{Binding DataContext.AddOrderCommand, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"/>
+                                        <Button Content="Добавить" CommandParameter="{Binding Path=Order.Id}" 
+                                                Command="{Binding DataContext.AddOrderCommand, 
+                                                                  RelativeSource={RelativeSource FindAncestor, 
+                                                                  AncestorType=Window}}"/>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
@@ -76,7 +75,7 @@
                 </Border>
             </TabItem>
 
-            <!-- Tab for Profile -->
+            
             <TabItem Width="Auto">
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
@@ -84,82 +83,111 @@
                         <TextBlock Text="Профиль"/>
                     </StackPanel>
                 </TabItem.Header>
-                <ListBox ItemsSource="{Binding ProfileForExecutor}" HorizontalContentAlignment="Stretch"
-                         Background="{StaticResource YourImageBrushKey}">
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <Border>
-                                <Grid Background="White" HorizontalAlignment="Center">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="2*"/>
-                                        <ColumnDefinition Width="2*"/>
-                                        <ColumnDefinition Width="2*"/>
-                                    </Grid.ColumnDefinitions>
 
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="2*"/>
-                                        <RowDefinition Height="3*"/>
-                                    </Grid.RowDefinitions>
+                <Grid Background="{StaticResource YourImageBrushKey}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="2*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="2*"/>
+                        <RowDefinition Height="3*"/>
+                    </Grid.RowDefinitions>
 
-                                    <Image Grid.Row="0" Grid.Column="1"
+                    <ListBox Grid.Column="1" Grid.RowSpan="2" ItemsSource="{Binding ProfileForExecutor}"
+                             HorizontalContentAlignment="Center" 
+                             Margin="0,0,0,50">
+
+                        <ListBox.ItemContainerStyle>
+                            <Style TargetType="ListBoxItem">
+                                <Setter Property="Background" Value="Transparent"/>
+                                <Setter Property="BorderBrush" Value="Transparent"/>
+                                <Setter Property="BorderThickness" Value="0"/>
+                                <Setter Property="Margin" Value="0"/>
+                                <Setter Property="Padding" Value="0"/>
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="ListBoxItem">
+                                            <ContentPresenter />
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </ListBox.ItemContainerStyle>
+
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Border>
+                                    <Grid Background="White" HorizontalAlignment="Center">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="2*"/>
+                                            <ColumnDefinition Width="2*"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="2*"/>
+                                            <RowDefinition Height="3*"/>
+                                        </Grid.RowDefinitions>
+
+                                        <Image Grid.Row="0" Grid.ColumnSpan="2"
 	                                 Source="\Images\execu.png"
-	                                 Stretch="Uniform" Margin="10" />
+	                                 Stretch="Uniform" Margin="10" 
+                                               />
 
-                                    <Button
+                                        <Button
 	                              Grid.Row="0" Grid.Column="1"
 	                              Margin="0,0,16,-10"
 	                              HorizontalAlignment="Right"
 	                              VerticalAlignment="Bottom"
 	                              Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}">
-                                        <materialDesign:PackIcon Kind="InsertPhoto" />
-                                    </Button>
+                                            <materialDesign:PackIcon Kind="InsertPhoto" />
+                                        </Button>
 
-                                    <StackPanel Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" Margin="10">
-                                        <TextBlock Text="Фамилия: "  Foreground="Black"  Margin="0,10,0,0"/>
-                                        <TextBlock Text="Имя: "      Foreground="Black"  Margin="0,10,0,0"/>
-                                        <TextBlock Text="Отчество:"  Foreground="Black"  Margin="0,10,0,0"/>
-                                        <TextBlock Text="E-Mail: "   Foreground="Black"  Margin="0,10,0,0"/>
-                                        <TextBlock Text="Телефон:"   Foreground="Black"  Margin="0,10,0,0"/>
-                                        <TextBlock Text="Рейтинг: "  Foreground="Black"  Margin="0,10,0,0"/>
-                                        <TextBlock Text="Логин: "    Foreground="Black"  Margin="0,10,0,0"/>
-                                        <TextBlock Text="Пароль:"    Foreground="Black"  Margin="0,10,0,0"/>
-                                    </StackPanel>
-                                    <!--тут код из вк, прил1-->
-                                    <StackPanel  Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right" Margin ="0,10,0,30">
-                                        <Label Margin ="0,7,0,0" Content="{Binding Executor.surname}"/>
-                                        <Label Margin ="0,0,0,0" Content="{Binding Executor.name}"/>
-                                        <Label Margin ="0,4,0,0" Content="{Binding Executor.middle_name}" />
-                                        <Label Margin ="0,2,0,0" Content="{Binding Executor.e_mail}" />
-                                        <Label Margin ="0,0,0,0" Content="{Binding Executor.telephone_number}" />
-                                        <Viewbox Height="16" Grid.Row="1" Grid.Column="1"
+                                        <StackPanel Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" Margin="10">
+                                            <TextBlock Text="Фамилия: "  Foreground="Black"  Margin="0,10,0,0"/>
+                                            <TextBlock Text="Имя: "      Foreground="Black"  Margin="0,10,0,0"/>
+                                            <TextBlock Text="Отчество:"  Foreground="Black"  Margin="0,10,0,0"/>
+                                            <TextBlock Text="E-Mail: "   Foreground="Black"  Margin="0,10,0,0"/>
+                                            <TextBlock Text="Телефон:"   Foreground="Black"  Margin="0,10,0,0"/>
+                                            <TextBlock Text="Рейтинг: "  Foreground="Black"  Margin="0,10,0,0"/>
+                                            <TextBlock Text="Логин: "    Foreground="Black"  Margin="0,10,0,0"/>
+                                            <TextBlock Text="Пароль:"    Foreground="Black"  Margin="0,10,0,0"/>
+                                        </StackPanel>
+                                        <!--тут код из вк, прил1-->
+                                        <StackPanel  Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right" Margin ="0,10,0,30">
+                                            <Label Margin ="0,7,0,0" Content="{Binding Executor.surname}"/>
+                                            <Label Margin ="0,0,0,0" Content="{Binding Executor.name}"/>
+                                            <Label Margin ="0,4,0,0" Content="{Binding Executor.middle_name}" />
+                                            <Label Margin ="0,2,0,0" Content="{Binding Executor.e_mail}" />
+                                            <Label Margin ="0,0,0,0" Content="{Binding Executor.telephone_number}" />
+                                            <Viewbox Height="16" Grid.Row="1" Grid.Column="1"
                                             VerticalAlignment="Top" 
                                              HorizontalAlignment="Left" Margin="0,8,0,0">
-                                            <materialDesign:RatingBar
+                                                <materialDesign:RatingBar
                                                 Foreground="Red"
                                                 Orientation="Horizontal"
                                                 Value="{Binding Executor.rating}" />
-                                        </Viewbox>
-                                        <Label Margin ="0,7,0,0" Content="{Binding Executor.login}" />
-                                        <Label Margin ="0,2,0,0" Content="{Binding Executor.password }" />
-                                    </StackPanel>
-
-                                    
-                                        <Button Panel.ZIndex="1" Grid.Row="2" Grid.Column="1" Content="Выход" Command="{Binding ExitFromAccauntCommand}" 
-                                 Style="{StaticResource MaterialDesignFlatButton}"
+                                            </Viewbox>
+                                            <Label Margin ="0,7,0,0" Content="{Binding Executor.login}" />
+                                            <Label Margin ="0,2,0,0" Content="{Binding Executor.password }" />
+                                        </StackPanel>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                    <Button Panel.ZIndex="1" Grid.Row="2" Grid.Column="1" Content="Выход" 
+                            Command="{Binding ExitFromAccauntCommand}" Margin="0,0,0,10"
                                  VerticalAlignment="Bottom"/>
-                                    
-                                </Grid>
-                            </Border>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
+                </Grid>
             </TabItem>
 
             <TabItem Width="Auto">
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
                         <Image Source="\Icons\InProgresIcon.png" Width="20" Height="20" Margin="0,0,10,0"/>
-                        <TextBlock Text="Заказы в процессе"/>
+                        <TextBlock Text="Заказы"/>
                     </StackPanel>
                 </TabItem.Header>
 

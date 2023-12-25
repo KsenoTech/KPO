@@ -1,5 +1,6 @@
 ﻿using Interfaces.DTO;
 using Interfaces.Services;
+using Services;
 using sheff.Infrastructure.Commands;
 using sheff.ViewModels.Base;
 using sheff.Views;
@@ -14,6 +15,7 @@ namespace sheff.ViewModels
         private readonly Login_Reg_Window _window;
         private readonly IExecutorService _executorService;
         private readonly IClientService _clientService;
+        private readonly ITServiceService _itService;
         public int ID_user;
 
         private string _login;
@@ -39,11 +41,12 @@ namespace sheff.ViewModels
             }
         }
 
-        public ViewModel_Login_Reg(Login_Reg_Window wnd, IExecutorService qexecutorService, IClientService qclientService)
+        public ViewModel_Login_Reg(Login_Reg_Window wnd, IExecutorService qexecutorService, IClientService qclientService, ITServiceService itService1)
         {
             _window = wnd;
             _executorService = qexecutorService;
             _clientService = qclientService;
+            _itService = itService1;
             OpenNextWindowCommand = new RelayCommand(OpenNextWindow);
         }
 

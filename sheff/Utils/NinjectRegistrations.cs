@@ -14,7 +14,7 @@ namespace sheff.Utils
             Bind<IExecutorService>().To<ExecutorService>();
             Bind<IClientService>().To<ClientService>();
             //Bind<IBookingService>().To<BookingService>();
-            //Bind<IServiceService>().To<ServiceService>();
+            Bind<ITServiceService>().To<TServiceService>();
             //Bind<IServiceBookingService>().To<ServiceBookingService>();
         }
     }

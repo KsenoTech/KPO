@@ -4,14 +4,16 @@
 		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-		xmlns:local="clr-namespace:sheff.Views" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-		mc:Ignorable="d"
+		xmlns:local="clr-namespace:sheff.Views" 
+            xmlns:viewmodels="clr-namespace:sheff.ViewModels" 
+            xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
 		
+		mc:Ignorable="d"
 		Title="Шеф-Построит! - Заказчик" 
 		Height="620" Width="800" 
 		WindowStartupLocation="CenterScreen"
 		Background="MediumPurple">
-
+    <!--d:DataContext="{d:DesignInstance Type=viewmodels:ViewModel_Customer}"-->
     <Window.Resources>
         <Style TargetType="Control">
             <Setter Property="Foreground" Value="Orange"/>
@@ -137,57 +139,83 @@
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
                         <Image Source="\Icons\OrderIcon.png" Width="20" Height="20" Margin="0,0,10,0"/>
-                        <TextBlock Text="Сделать заказ"/>
+                        <TextBlock Text="Создать заявку"/>
                     </StackPanel>
                 </TabItem.Header>
 
-                  
-                    <!--<DataGrid ItemsSource="{Binding MakeOrder_Customer, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False">
-                        --><!-- Остальные столбцы DataGrid --><!--
-                    </DataGrid>-->
-                    <!-- ListBox с услугами из "Type_of_service" 
-                                <CheckBox Content="{Binding description}" IsChecked="{Binding IsSelected}"/>-->
-                    <!--<GroupBox Grid.ColumnSpan="6" Grid.Row="1" Background="White" Header="Заявка">-->
-                <Grid Background="{StaticResource YourImageBrushKey}"  >
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="2*"/>
-                        <RowDefinition Height="1*"/>
-                    </Grid.RowDefinitions>
+                <Border Background="{StaticResource YourImageBrushKey}">
+                    <Grid >
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="3.8*"/>
+                            <RowDefinition Height="1.5*"/>
+                        </Grid.RowDefinitions>
 
-                    <DataGrid AutoGenerateColumns="False"  ItemsSource="{Binding Services_List}" IsReadOnly="True" SelectionMode="Single" SelectionUnit="FullRow" VerticalAlignment="Top" Margin ="50,0,50,10">
-                        <DataGrid.Columns  >
-                            <DataGridTextColumn Binding="{Binding id}" Header="Номер" Width="Auto"/>
-                            <DataGridTextColumn Binding="{Binding description_of_service}" Header="Название услуги" Width="Auto"/>
-                            <DataGridTextColumn Binding="{Binding cost_of_m}" Header="Стоимость за метр" Width="Auto"/>
-                            <DataGridTextColumn Binding="{Binding cost_of_m2}" Header="Стоимость за кв. метр" Width="Auto"/>
-                            
-                            <DataGridTemplateColumn>
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <CheckBox Content="Добавить" CommandParameter="{Binding Path=Id}"
-                                        Command="{Binding Path=DataContext.EditWinCommand,RelativeSource={RelativeSource FindAncestor,
-                                                AncestorType=Window}}"/>
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
-                            </DataGridTemplateColumn>
-                        </DataGrid.Columns>
+                        <DataGrid AutoGenerateColumns="False"  
+                              ItemsSource="{Binding ServicesFaorOrder_Customer}" IsReadOnly="True" SelectionMode="Single" SelectionUnit="FullRow" VerticalAlignment="Top" Margin ="50,0,50,10">
 
-                        <Label Grid.Row="2" Content="s" VerticalContentAlignment="Top" />
-                        <Label Grid.Row="2"/>
-                                          
-                    </DataGrid>
-                    
-                    <TextBox  materialDesign:HintAssist.Hint="Описание ремонта:" Grid.Row="2" 
-                              Text="{Binding Path=description,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
-                              Margin="50,0" Background="White" />
-                    
-                    <Button Grid.Row="2" Content="Добавить заказ" Command="{Binding AddOrderCommand}" VerticalAlignment="Bottom"  Margin="50,0"/>
-                </Grid>
+                            <DataGrid.Columns >
+                                <DataGridTextColumn Binding="{Binding Type_of_service.description_of_service}" Header="Название услуги" Width="Auto"/>
+                                <DataGridTextColumn Binding="{Binding Type_of_service.cost_of_m}" Header="Цена за метр" Width="Auto"/>
+                                <DataGridTextColumn Binding="{Binding Type_of_service.cost_of_m2}" Header="Цена за кв. метр" Width="Auto"/>
+                                <!--<DataGridTextColumn Binding="{Binding Executor.FIO}" Header="ФИО мастера" Width="Auto"/>-->
+
+                                <DataGridTemplateColumn>
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <CheckBox Content="Добавить" CommandParameter="{Binding Path=Type_of_service.Id}"
+                                                  Command="{Binding DataContext.AddOneServiceCommand,
+                                                                    RelativeSource={RelativeSource FindAncestor,
+                                                                    AncestorType=Window}}"/>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                
+                            </DataGrid.Columns>
+
+                            <Label Grid.Row="2"/>
+                            <Label Grid.Row="2"/>
+
+                        </DataGrid>
                         
-                    <!--</GroupBox>-->
-                    
-                    <!--<TextBox  Text="{Binding description}"/>
-                    <TextBlock Text="{Binding general_budget}"/>-->            
+                        <Grid Grid.Row="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="4*"/>
+                                <RowDefinition Height="2*"/>
+                                <RowDefinition Height="2*"/>
+                                <RowDefinition Height="2*"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="4*"/>
+                                <ColumnDefinition Width="2*"/>
+                                
+                            </Grid.ColumnDefinitions>
+
+                                <TextBox  materialDesign:HintAssist.Hint="Краткое описание ремонта:" Grid.RowSpan="3" 
+                                  Grid.Column="0" 
+                                  Text="{Binding Path=description,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
+                                  Margin="50,0,5,5" Background="White" />
+
+                            <TextBox  materialDesign:HintAssist.Hint="Итоговая стоимость:" Grid.Row="0" 
+                                  Grid.Column="2" 
+                                  Text="{Binding Path=Itog,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
+                                  Margin="5,0,50,5" Background="White" />
+
+                            <TextBox  materialDesign:HintAssist.Hint="Ваша площадь (m2): " Grid.Row="1" 
+                                  Grid.Column="1" 
+                                  Text="{Binding Path=Itog,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
+                                  Margin="5,0,50,5" Background="White" />
+                            
+                        <TextBox  materialDesign:HintAssist.Hint="Ваши погонные метры (m): " Grid.Row="2" 
+                              Grid.Column="1" 
+                              Text="{Binding Path=Itog,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
+                              Margin="5,0,50,5" Background="White" />
+                        
+                        <Button Grid.Row="3" Grid.ColumnSpan="2"  Content="Добавить заказ" 
+                                Command="{Binding AddOrderCommand}" 
+                                VerticalAlignment="Bottom"  Margin="50,0,50,5"/>
+                        </Grid>
+                    </Grid>
+                </Border>
             </TabItem>
 
 
@@ -199,68 +227,96 @@
                     </StackPanel>
                 </TabItem.Header>
 
-                <ListBox ItemsSource="{Binding ProfileForCustomer}" HorizontalContentAlignment="Stretch"
-                         Background="{StaticResource YourImageBrushKey}" Panel.ZIndex="0">
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <Border>
-                                <Grid Background="White" HorizontalAlignment="Center">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="2*"/>
-                                        <ColumnDefinition Width="2*"/>
-                                        <ColumnDefinition Width="2*"/>
-                                    </Grid.ColumnDefinitions>
+                <Grid Background="{StaticResource YourImageBrushKey}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="2*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="2*"/>
+                        <RowDefinition Height="3*"/>
+                    </Grid.RowDefinitions>
 
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="2*"/>
-                                        <RowDefinition Height="3*"/>
-                                    </Grid.RowDefinitions>
+                    <ListBox  Grid.Column="1" Grid.RowSpan="2" ItemsSource="{Binding ProfileForCustomer}" 
+                              HorizontalContentAlignment="Center"
+                              Margin="0,0,0,50">
+                        <ListBox.ItemContainerStyle>
+                            <Style TargetType="ListBoxItem">
+                                <Setter Property="Background" Value="Transparent"/>
+                                <Setter Property="BorderBrush" Value="Transparent"/>
+                                <Setter Property="BorderThickness" Value="0"/>
+                                <Setter Property="Margin" Value="0"/>
+                                <Setter Property="Padding" Value="0"/>
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="ListBoxItem">
+                                            <ContentPresenter />
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </ListBox.ItemContainerStyle>
+                        
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Border>
+                           <Grid Background="White" HorizontalAlignment="Center">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2*"/>
+                                    <ColumnDefinition Width="2*"/>
+                                </Grid.ColumnDefinitions>
 
-                                    <Image Grid.Row="0" Grid.Column="1"
-	                                 Source="\Images\execu.png"
-	                                 Stretch="Uniform" Margin="10" />
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="2*"/>
+                                    <RowDefinition Height="3*"/>
+                                </Grid.RowDefinitions>
 
-                                    <Button
+                                <Image Grid.Row="0" Grid.ColumnSpan="2"
+	                                 Source="\Images\client.png"
+	                                 Stretch="Uniform" Margin="10"  />
+
+                                <Button
 	                              Grid.Row="0" Grid.Column="1"
 	                              Margin="0,0,16,-10"
 	                              HorizontalAlignment="Right"
 	                              VerticalAlignment="Bottom"
 	                              Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}">
-                                        <materialDesign:PackIcon Kind="InsertPhoto" />
-                                    </Button>
+                                    <materialDesign:PackIcon Kind="InsertPhoto" />
+                                </Button>
 
-                                    <StackPanel Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" Margin="10">
-                                        <TextBlock Text="Фамилия: "  Foreground="Black"  Margin="0,10,0,0"/>
-                                        <TextBlock Text="Имя: "      Foreground="Black"  Margin="0,10,0,0"/>
-                                        <TextBlock Text="Отчество:"  Foreground="Black"  Margin="0,10,0,0"/>
-                                        <TextBlock Text="E-Mail: "   Foreground="Black"  Margin="0,10,0,0"/>
-                                        <TextBlock Text="Телефон:"   Foreground="Black"  Margin="0,10,0,0"/>
-                                        <TextBlock Text="Адресс : "  Foreground="Black"  Margin="0,10,0,0"/>
-                                        <TextBlock Text="Логин: "    Foreground="Black"  Margin="0,10,0,0"/>
-                                        <TextBlock Text="Пароль:"    Foreground="Black"  Margin="0,10,0,0"/>
-                                    </StackPanel>
-                                    <!--тут код из вк, прил1-->
-                                    <StackPanel  Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right" Margin ="0,10,0,30">
-                                        <Label Margin ="0,7,0,0" Content="{Binding Customer.surname}"/>
-                                        <Label Margin ="0,0,0,0" Content="{Binding Customer.name}"/>
-                                        <Label Margin ="0,4,0,0" Content="{Binding Customer.middle_name}" />
-                                        <Label Margin ="0,2,0,0" Content="{Binding Customer.e_mail}" />
-                                        <Label Margin ="0,3,0,0" Content="{Binding Customer.telephone_number}" />
-                                        <Label Margin ="0,0,0,0" Content="{Binding Customer.address}" />
-                                        <Label Margin ="0,2,0,0" Content="{Binding Customer.login}" />
-                                        <Label Margin ="0,2,0,0" Content="{Binding Customer.password }" />
-                                    </StackPanel>
-
-
-                                    <Button Panel.ZIndex="1" Grid.Row="2" Grid.Column="1" Content="Выход" Command="{Binding ExitFromAccauntCommand}" 
-                                 Style="{StaticResource MaterialDesignFlatButton}"
-                                 VerticalAlignment="Bottom"/>
-
-                                </Grid>
-                            </Border>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
+                                <StackPanel Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" Margin="10">
+                                    <TextBlock Text="Фамилия: "  Foreground="Black"  Margin="0,10,0,0"/>
+                                    <TextBlock Text="Имя: "      Foreground="Black"  Margin="0,10,0,0"/>
+                                    <TextBlock Text="Отчество:"  Foreground="Black"  Margin="0,10,0,0"/>
+                                    <TextBlock Text="E-Mail: "   Foreground="Black"  Margin="0,10,0,0"/>
+                                    <TextBlock Text="Телефон:"   Foreground="Black"  Margin="0,10,0,0"/>
+                                    <TextBlock Text="Адресс : "  Foreground="Black"  Margin="0,10,0,0"/>
+                                    <TextBlock Text="Логин: "    Foreground="Black"  Margin="0,10,0,0"/>
+                                    <TextBlock Text="Пароль:"    Foreground="Black"  Margin="0,10,0,0"/>
+                                </StackPanel>
+                                <!--тут код из вк, прил1-->
+                                <StackPanel  Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right" Margin ="0,10,0,30">
+                                    <Label Margin ="0,7,0,0" Content="{Binding Customer.surname}"/>
+                                    <Label Margin ="0,0,0,0" Content="{Binding Customer.name}"/>
+                                    <Label Margin ="0,4,0,0" Content="{Binding Customer.middle_name}" />
+                                    <Label Margin ="0,2,0,0" Content="{Binding Customer.e_mail}" />
+                                    <Label Margin ="0,3,0,0" Content="{Binding Customer.telephone_number}" />
+                                    <Label Margin ="0,0,0,0" Content="{Binding Customer.address}" />
+                                    <Label Margin ="0,2,0,0" Content="{Binding Customer.login}" />
+                                    <Label Margin ="0,2,0,0" Content="{Binding Customer.password }" />
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
                 </ListBox>
+
+
+                    <Button Panel.ZIndex="1" Grid.Row="2" Grid.Column="1" Content="Выход" 
+                            Command="{Binding ExitFromAccauntCommand}"
+                                 VerticalAlignment="Bottom" Margin="5"/>
+                </Grid>
             </TabItem>
 
 
@@ -277,12 +333,13 @@
                         <RowDefinition Height="10*"/>
                         <RowDefinition Height="1*"/>
                     </Grid.RowDefinitions>
-                    <DataGrid  Margin="50,0"  x:Name="InProgressGrid_Customer" ItemsSource="{Binding OrdersInProgress, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" >
+                    <DataGrid  Margin="50,0"  x:Name="InProgressGrid_Customer" 
+                               ItemsSource="{Binding OrdersInProgress, Mode=TwoWay, 
+                                UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" >
                         <DataGrid.Columns>
                             <!--<DataGridTextColumn Binding="{Binding Id}" Header="№" Width="30"/>-->
                             <DataGridTextColumn Binding="{Binding description}" Header="Описание" Width="Auto"/>
-                            <DataGridTextColumn Binding="{Binding progress}" Header="Прогресс" Width="Auto"/>
-                            <DataGridTextColumn Binding="{Binding IsItFinished}" Header="Закончен?" Width="Auto"/>
+                            <DataGridTextColumn Binding="{Binding time_order}" Header="Дата начала" Width="150"/>
                             <DataGridTextColumn Binding="{Binding canIdoIt}" Header="Взят ли мастером?" Width="Auto"/>
                             <DataGridTextColumn Binding="{Binding general_budget}" Header="Итоговая стоимость" Width="Auto"/>
                         </DataGrid.Columns>
@@ -318,9 +375,7 @@
                         <DataGrid.Columns>
                             <!--<DataGridTextColumn Binding="{Binding Id}" Header="№" Width="30"/>-->
                             <DataGridTextColumn Binding="{Binding description}" Header="Описание" Width="Auto"/>
-                            <DataGridTextColumn Binding="{Binding progress}" Header="Прогресс" Width="Auto"/>
-                            <DataGridTextColumn Binding="{Binding IsItFinished}" Header="Закончен?" Width="Auto"/>
-                            <DataGridTextColumn Binding="{Binding canIdoIt}" Header="Взят ли мастером?" Width="Auto"/>
+                            <DataGridTextColumn Binding="{Binding time_order}" Header="Дата окончания" Width="Auto"/>
                             <DataGridTextColumn Binding="{Binding general_budget}" Header="Итоговая стоимость" Width="Auto"/>
                         </DataGrid.Columns>
 

@@ -87,7 +87,7 @@
     <Compile Include="Models\Model_Executor.cs" />
     <Compile Include="Models\Model_Order.cs" />
     <Compile Include="Models\Model_OrderExecutorEntity.cs" />
-    <Compile Include="Models\Model_Service.cs" />
+    <Compile Include="Models\Model_ServiceForOrder.cs" />
     <Compile Include="Utils\NinjectRegistrations.cs" />
     <Compile Include="Utils\ReposModule.cs" />
     <Compile Include="ViewModels\Base\ViewModel.cs" />

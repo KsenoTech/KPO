@@ -59,6 +59,8 @@ namespace sheff.ViewModels
         public ObservableCollection<OrderDTO> OrdersForHistories { get; set; }
 
 
+
+
         private ICommand _addOrderCommand;
         public ICommand AddOrderCommand
         {
@@ -66,13 +68,11 @@ namespace sheff.ViewModels
             {
                 if (_addOrderCommand == null)
                 {
-                   // _addOrderCommand = new RelayCommand(AddOrder);
+                    // _addOrderCommand = new RelayCommand(AddOrder);
                 }
                 return _addOrderCommand;
             }
         }
-
-
 
         //-----------------Заказ создать----------------------------
 

@@ -6,6 +6,7 @@ using Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 
 namespace BLL.Services
 {
@@ -85,15 +86,15 @@ namespace BLL.Services
             }
         }
 
-        public List<OrderDTO> GetFinishedOrders()
+        public List<OrderDTO> GetFinishedOrders(int _id)
         {
-           return db.Orders.GetList().Where(order => order.IsItFinished == true && order.progress == 100).Select(i => new OrderDTO(i)).ToList();
+           return db.Orders.GetList().Where(order => order.OrderPosition == Position.Finished && order.client_ID == _id).Select(i => new OrderDTO(i)).ToList();
         }
 
         
-        public List<OrderDTO> GetInProgressOrders()
+        public List<OrderDTO> GetInProgressOrders(int _id)
         {
-            return db.Orders.GetList().Where(order => order.progress >= 0 && order.IsItFinished == false && order.canIdoIt == true).Select(i => new OrderDTO(i)).ToList();
+            return db.Orders.GetList().Where(order => order.OrderPosition == Position.Applied && order.client_ID == _id).Select(i => new OrderDTO(i)).ToList();
         }
 
         public void UpdetePosition(OrderDTO p, Position position)
