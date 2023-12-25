@@ -5,7 +5,7 @@
 		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 		xmlns:local="clr-namespace:sheff.Views" 
-            xmlns:viewmodels="clr-namespace:sheff.ViewModels" 
+          Icon="\Icons\logo.png"
             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
 		
 		mc:Ignorable="d"
@@ -151,7 +151,7 @@
                         </Grid.RowDefinitions>
 
                         <DataGrid AutoGenerateColumns="False"  
-                              ItemsSource="{Binding ServicesFaorOrder_Customer}" IsReadOnly="True" SelectionMode="Single" SelectionUnit="FullRow" VerticalAlignment="Top" Margin ="50,0,50,10">
+                              ItemsSource="{Binding ServicesForOrder_Customer, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" SelectionMode="Single" SelectionUnit="FullRow" VerticalAlignment="Top" Margin ="50,0,50,10">
 
                             <DataGrid.Columns >
                                 <DataGridTextColumn Binding="{Binding Type_of_service.description_of_service}" Header="Название услуги" Width="Auto"/>
@@ -162,7 +162,7 @@
                                 <DataGridTemplateColumn>
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
-                                            <CheckBox Content="Добавить" CommandParameter="{Binding Path=Type_of_service.Id}"
+                                            <Button Content="Добавить" CommandParameter="{Binding Path=Type_of_service.Id}"
                                                   Command="{Binding DataContext.AddOneServiceCommand,
                                                                     RelativeSource={RelativeSource FindAncestor,
                                                                     AncestorType=Window}}"/>
@@ -172,8 +172,7 @@
                                 
                             </DataGrid.Columns>
 
-                            <Label Grid.Row="2"/>
-                            <Label Grid.Row="2"/>
+                          
 
                         </DataGrid>
                         
@@ -192,26 +191,26 @@
 
                                 <TextBox  materialDesign:HintAssist.Hint="Краткое описание ремонта:" Grid.RowSpan="3" 
                                   Grid.Column="0" 
-                                  Text="{Binding Path=description,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
+                                  Text="{Binding Path=DopDescription,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
                                   Margin="50,0,5,5" Background="White" />
 
                             <TextBox  materialDesign:HintAssist.Hint="Итоговая стоимость:" Grid.Row="0" 
                                   Grid.Column="2" 
-                                  Text="{Binding Path=Itog,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
+                                  Text="{Binding Path=TotalCostS,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
                                   Margin="5,0,50,5" Background="White" />
 
                             <TextBox  materialDesign:HintAssist.Hint="Ваша площадь (m2): " Grid.Row="1" 
                                   Grid.Column="1" 
-                                  Text="{Binding Path=Itog,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
+                                  Text="{Binding Path=Metrahg2,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
                                   Margin="5,0,50,5" Background="White" />
                             
                         <TextBox  materialDesign:HintAssist.Hint="Ваши погонные метры (m): " Grid.Row="2" 
                               Grid.Column="1" 
-                              Text="{Binding Path=Itog,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
+                              Text="{Binding Path=Metrahg,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
                               Margin="5,0,50,5" Background="White" />
                         
                         <Button Grid.Row="3" Grid.ColumnSpan="2"  Content="Добавить заказ" 
-                                Command="{Binding AddOrderCommand}" 
+                                Command="{Binding PushServiceCommand}" 
                                 VerticalAlignment="Bottom"  Margin="50,0,50,5"/>
                         </Grid>
                     </Grid>

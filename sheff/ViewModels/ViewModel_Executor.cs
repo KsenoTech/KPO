@@ -161,7 +161,7 @@ namespace sheff.ViewModels
 
             }
 
-            orderDTOs = _orderService.GetAllOrders().Where(x => x.OrderPosition == Position.InProgress && x.executor_ID == _id).ToList();
+            orderDTOs = _orderService.GetAllOrders().Where(x => x.OrderPosition == Position.InProgress).ToList();
 
             foreach (OrderDTO emp in orderDTOs)
             {

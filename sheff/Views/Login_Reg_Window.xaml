@@ -56,7 +56,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        
+        Icon="\Icons\logo.png"
         xmlns:local="clr-namespace:sheff.Views"
         mc:Ignorable="d"
         Title="Login_Reg_Window" Height="500" Width="800"

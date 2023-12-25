@@ -19,6 +19,13 @@ namespace Services
         List<OrderDTO> GetFinishedOrders(int _id);
         List<OrderDTO> GetInProgressOrders(int _id);
         OrderDTO MakeOrder(OrderDTO p);
+        /// <summary>
+        /// Создаем заказ
+        /// </summary>
+        /// <param name="dTO"></param>
+        /// <param name="descript"></param>
+        /// <param name="summ"></param>
+        void CreateOrderWithService(OrderDTO dTO, string descript, int summ, int _id);
         OrderDTO GetOrder(int orderrId);
 
         void UpdetePosition(OrderDTO p, Position position);

@@ -1,19 +1,53 @@
 ﻿using Interfaces.DTO;
 using sheff.ViewModels;
+using sheff.ViewModels.Base;
 using System;
 using System.Collections.Generic;
 
 namespace sheff.Models
 {
-    public class Model_Order
+    public class Model_Order : ViewModel
     {
-        public int Id { get; set; }
-        public string description { get; set; }
-        public DateTime time_order { get; set; }
-        public int general_budget { get; set; }
-        public int progress { get; set; }
-        public bool IsItFinished { get; set; }
-        public bool canIdoIt { get; set; }
+        private int id;
+        private string _description;
+        private DateTime _time_order;
+        private int _general_budget;
+
+        public int Id {
+            get { return id; }
+            set
+            {
+                id = value;
+                OnPropertyChanged("Id");
+            }
+        }
+        public string description {
+            get { return _description; }
+            set
+            {
+                _description = value;
+                OnPropertyChanged("description");
+            }
+        }
+        public DateTime time_order {
+            get { return _time_order; }
+            set
+            {
+                _time_order = value;
+                OnPropertyChanged("time_order");
+            }
+        }
+        public int general_budget {
+            get { return _general_budget; }
+            set
+            {
+                _general_budget = value;
+                OnPropertyChanged("general_budget");
+            }
+        }
+        //public int progress { get; set; }
+        //public bool IsItFinished { get; set; }
+        //public bool canIdoIt { get; set; }
         //public string OrderedExecutors { get; set; }
         //public List<int> OrderedExecutorIDs { get; set; }
         //public string OrderedService { get; set; }
@@ -26,9 +60,9 @@ namespace sheff.Models
             description = order.description;
             time_order = order.time_order;
             general_budget = order.general_budget;
-            progress = order.progress;
-            IsItFinished = order.IsItFinished;
-            canIdoIt = order.canIdoIt;
+            //progress = order.progress;
+            //IsItFinished = order.IsItFinished;
+            //canIdoIt = order.canIdoIt;
 
         }
     }

@@ -28,15 +28,18 @@ namespace DomainModel
 
             modelBuilder.Entity<Executor>()
                 .HasMany(e => e.Order)
-                .WithRequired(e => e.Executor)
-                .HasForeignKey(e => e.executor_ID)
-                .WillCascadeOnDelete(false);
+                .WithOptional(e => e.Executor)
+                .HasForeignKey(e => e.executor_ID);
 
             modelBuilder.Entity<Feedback>()
                 .HasMany(e => e.Order)
-                .WithRequired(e => e.Feedback)
-                .HasForeignKey(e => e.feedback_ID)
-                .WillCascadeOnDelete(false);
+                .WithOptional(e => e.Feedback)
+                .HasForeignKey(e => e.feedback_ID);
+
+            modelBuilder.Entity<Order>()
+                .HasMany(e => e.Type_of_service)
+                .WithOptional(e => e.Order)
+                .HasForeignKey(e => e.Order_Id);
         }
     }
 }

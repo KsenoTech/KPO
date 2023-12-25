@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:sheff.Views"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
         xmlns:viewmodels="clr-namespace:sheff.ViewModels" 
-        
+        Icon="\Icons\logo.png"
         d:DataContext="{d:DesignInstance Type=viewmodels:ViewModel_Executor}"
         mc:Ignorable="d"
         Title="Шеф-Построит! - Исполнитель"

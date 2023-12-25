@@ -47,3 +47,5 @@ C:\LEEV\UNIVER\3_course-1_term\Конструирование ПО\KURSACH\sheff
 C:\LEEV\UNIVER\3_course-1_term\Конструирование ПО\KURSACH\sheff\obj\Debug\sheff.csproj.CopyComplete
 C:\LEEV\UNIVER\3_course-1_term\Конструирование ПО\KURSACH\sheff\obj\Debug\sheff.exe
 C:\LEEV\UNIVER\3_course-1_term\Конструирование ПО\KURSACH\sheff\obj\Debug\sheff.pdb
+C:\LEEV\UNIVER\3_course-1_term\Конструирование ПО\KURSACH\sheff\obj\Debug\sheff.Migrations.InitialCreate.resources
+C:\LEEV\UNIVER\3_course-1_term\Конструирование ПО\KURSACH\sheff\obj\Debug\sheff.Migrations._1.resources

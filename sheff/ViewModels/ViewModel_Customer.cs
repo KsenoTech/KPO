@@ -13,6 +13,7 @@ using sheff.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Windows;
@@ -23,15 +24,11 @@ namespace sheff.ViewModels
     public class ViewModel_Customer : ViewModel
     {
         public ObservableCollection<Model_Customer> ProfileForCustomer { get; set; }
+        public ObservableCollection<Model_ServiceForOrder> ServicesForOrder_Customer { get; set; }
+
         private List<ClientDTO> clientDTOs;
+        private List<OrderDTO> orderDTOs;
         private List<Type_of_serviceDTO> tServiceDTOs;
-
-        //public ViewModel_Order SubVM_Order { get; set; }
-
-        //public ViewModel_Customer()
-        //{
-        //    SubVM_Order = new ViewModel_Order(_orderService);
-        //}
        
         private readonly IOrderService _orderService;
         private readonly IClientService _clientService;
@@ -80,6 +77,15 @@ namespace sheff.ViewModels
             }
         }
 
+        private ICommand _pushServiceCommand;
+        public ICommand PushServiceCommand
+        {
+            get { return _pushServiceCommand; }
+            set
+            {
+                if (!Set(ref _pushServiceCommand, value)) return;
+            }
+        }
         private ICommand _addServiceCommand;
         public ICommand AddOneServiceCommand
         {
@@ -128,14 +134,13 @@ namespace sheff.ViewModels
             OrdersInProgress = ConvertDataOrderView(_orderService.GetInProgressOrders(_id));
         }
 
-
         private List<Model_OrdersForHistory> ConvertDataOrderView(List<OrderDTO> orders)
         {
             return orders.Select(i => new Model_OrdersForHistory(i)).ToList();
         }
         
-        private List<Model_OrdersForHistory> _ordersForMakeOrder;
-        public List<Model_OrdersForHistory> MakeOrder_Customer
+        private List<Model_ServiceForOrder> _ordersForMakeOrder;
+        public List<Model_ServiceForOrder> MakeOrder_Customer
         {
             get => _ordersForMakeOrder;
             set
@@ -145,11 +150,11 @@ namespace sheff.ViewModels
         }
 
 
-        public ObservableCollection<Model_ServiceForOrder> ServicesForOrder_Customer { get; set; }
+
 
         public ViewModel_Customer(Window_Customer thisWindow, IOrderService orderService, IClientService clientService, IExecutorService executorService, ITServiceService _itServiceService, int ID_user) 
         {
-
+            addDescriptionForService = "";
             _wnd = thisWindow;
             _id = ID_user;
             _orderService = orderService;
@@ -158,17 +163,62 @@ namespace sheff.ViewModels
             _itService = _itServiceService;
             LoadProfile();
             LoadAllTServices();
-            //LoadHistory();
+
 
             HistoryCommand = new RelayCommand(SearchFinishedOrders);
             InProgressCommand = new RelayCommand(SearchInProgressOrders);
             ExitFromAccauntCommand = new RelayCommand(Back);
+            PushServiceCommand = new RelayCommand(Save);
 
             AddOneServiceCommand = new RelayCommand(param => AddTService((int)param), null);
-            //AddOrderCommand = new RelayCommand();
+            
+           // AddOrderCommand = new RelayCommand();
 
             StartDate = new DateTime(2023, 12, 20);
             EndDate = new DateTime(2023, 12, 31);
+        }
+     
+        public Model_Order Model_PushOrderFOR { get; set; }
+        public void Save(object os)
+        {
+
+                try
+                {
+
+                        if (Model_PushOrderFOR == null)
+                        {
+                            Model_PushOrderFOR = new Model_Order();
+                        }
+                        else
+                        {
+                            //Model_PushOrderFOR.Clear();
+
+                        }
+
+                        //orderDTOs = _clientService.GetAllClients().Where(x => x.Id == _id).ToList();
+                        
+                        
+                        OrderDTO temp = new OrderDTO();
+                        temp.general_budget = TotalCostS;
+                        temp.description = DopDescription;
+                        
+                        _orderService.CreateOrderWithService(temp, DopDescription, TotalCostS, _id);
+                        MessageBox.Show("Запись успешно добавлено в бд");
+                        TotalCostS = 0;
+                        DopDescription = "";
+
+                        //_employeeService.UpdateEmployee(Model_PushOrderFOR);
+                        MessageBox.Show("Проблэма");
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Возникли ошибки при запросе в бд" + ex.Message);
+                }
+                finally
+                {
+                    LoadAllTServices();
+                }
         }
 
         public void LoadAllTServices()
@@ -184,7 +234,7 @@ namespace sheff.ViewModels
             }
 
             tServiceDTOs = _itService.GetAllTServices().ToList();
-            //var inn;
+         
             foreach (Type_of_serviceDTO emp in tServiceDTOs)
             {
                 Model_ServiceForOrder temp = new Model_ServiceForOrder();
@@ -192,54 +242,85 @@ namespace sheff.ViewModels
                 ServicesForOrder_Customer.Add(temp);
             }
         }
+
+        public ObservableCollection<Model_ServiceForOrder> UsedServicesByCustomer { get; set; }
+        public string addDescriptionForService;
+
+
+        private int totalCost = 0;
+        public int TotalCostS
+        {
+            get { return totalCost; }
+            set 
+            { 
+                totalCost = value;
+                OnPropertyChanged("TotalCostS");
+            } 
+        }
         
 
+        private string dopDescription;
+        public string DopDescription
+        {
+            get { return dopDescription; }
+            set
+            {
+                dopDescription = value;
+                OnPropertyChanged("DopDescription");
+            }
+        }
+
+        private int metrahg2 = 1;
+        public int Metrahg2
+        {
+            get { return metrahg2; }
+            set
+            {
+                metrahg2 = value;
+                OnPropertyChanged("Metrahg2");
+            }
+        }
+
+        private int metrahg = 1;
+        public int Metrahg
+        {
+            get { return metrahg; }
+            set
+            {
+                metrahg = value;
+                OnPropertyChanged("Metrahg");
+            }
+        }
         public void AddTService(int id)
         {
-            if (MessageBox.Show("Подтверждаете взятие заказа в работу", "Order", MessageBoxButton.YesNo)
+            if (MessageBox.Show("Подтверждаете взятие услуги ", "Type_of_service", MessageBoxButton.YesNo)
                 == MessageBoxResult.Yes)
             {
                 try
                 {
-                   
-                    var temp = _itService.GetAllTServices();
-                    //_orderService.UpdetePosition(temp, Position.Applied);
-                    MessageBox.Show("Заказ отправлен!");
+                    var temp = _itService.GetTService(id);
+                    DopDescription += temp.description_of_service + ", ";
+                    if (temp.cost_of_m2 != null)
+                    {
+                        TotalCostS += (int)temp.cost_of_m2 * Metrahg2;
+                    }
+                    TotalCostS += (int)temp.cost_of_m * Metrahg;
+                    //_itService.UpdetePosition(temp, Position.Applied);
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Возникла ошибка " + ex.InnerException);
+                    MessageBox.Show("Возникла " + ex.Message);
                 }
                 finally
                 {
                     HistoryCommand = new RelayCommand(SearchFinishedOrders);
                     InProgressCommand = new RelayCommand(SearchInProgressOrders);
                 }
+
             }
         }
 
-        //private void LoadHistory()
-        //{
-        //    if (OrdersInProgress == null)
-        //    {
-        //        OrdersInProgress = new ObservableCollection<Model_OrderExecutorEntity>();
-        //    }
-        //    else
-        //    {
-        //        OrdersInProgress.Clear();
 
-        //    }
-
-        //    orderDTOs = _orderService.GetAllOrders().Where(x => x.OrderPosition == Position.Finished && x.executor_ID == _id).ToList();
-
-        //    foreach (OrderDTO emp in orderDTOs)
-        //    {
-        //        Model_OrderExecutorEntity temp = new Model_OrderExecutorEntity();
-        //        temp.Order = emp;
-        //        temp.Client = _clientService.GetClient(emp.client_ID);
-        //        HistoryOrdersForExecutor.Add(temp);
-        //    }
-        //}
 
         private void Back(object obj)
         {
@@ -283,7 +364,7 @@ namespace sheff.ViewModels
             //    // Добавьте остальные объекты ViewModel_Service
             //};
         }
-
+        
         #region CALENDAR
 
         private DateTime _selectedDate;
