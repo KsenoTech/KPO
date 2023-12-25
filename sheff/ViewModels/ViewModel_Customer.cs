@@ -31,7 +31,7 @@ namespace sheff.ViewModels
         //}
 
         private readonly IOrderService _orderService;
-        private readonly IClientService _clientService = null;
+        private readonly IClientService _clientService;
         private readonly Window_Customer _wnd;
         private int _id = 0;
 
@@ -84,40 +84,6 @@ namespace sheff.ViewModels
             OrdersForHistories = ConvertDataOrderView(_orderService.GetFinishedOrders());
         }
 
-
-
-
-        private ICommand _updateProfileCommand;
-        public ICommand UpdateProfileCommand
-        {
-            get { return _updateProfileCommand; }
-            set
-            {
-                if (!Set(ref _updateProfileCommand, value)) return;
-            }
-        }
-        private List<Model_Client> _profile;
-        public List<Model_Client> Profile
-        {
-            get => _profile;
-            set
-            {
-                if (!Set(ref _profile, value)) return;
-            }
-        }
-        public void GetClientInfo(object obj)
-        {
-            Profile = ConvertProfileView(_clientService.GetAllClients());
-            var t = 5;
-        }
-        private List<Model_Client> ConvertProfileView(List<ClientDTO> orders)
-        {
-            return orders.Select(i => new Model_Client(i)).ToList();
-        }
-
-
-
-
         private ICommand _inProgressCommand;
         public ICommand InProgressCommand
         {
@@ -159,18 +125,20 @@ namespace sheff.ViewModels
         }
         public ViewModel_Customer(Window_Customer thisWindow, IOrderService orderService, IClientService clientService,  int ID_user) 
         {
-            LoadProfile();
+            _wnd = thisWindow;
+            _id = ID_user;
             _orderService = orderService;
             _clientService = clientService;
+
+            LoadProfile();
+
             HistoryCommand = new RelayCommand(SearchFinishedOrders);
             InProgressCommand = new RelayCommand(SearchInProgressOrders);
             //_ordersForMakeOrder = ConvertDataOrderView(_orderService.GetFinishedOrders());
-            UpdateProfileCommand = new RelayCommand(GetClientInfo);
+            //UpdateProfileCommand = new RelayCommand(GetClientInfo);
 
             //List<ViewModel_Service> servicesFromDatabase = GetDataFromDatabase();
             //_ordersForOrder = servicesFromDatabase;
-            _wnd = thisWindow;
-            _id = ID_user;
 
             StartDate = new DateTime(2023, 12, 20);
             EndDate = new DateTime(2023, 12, 31);

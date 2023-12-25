@@ -200,7 +200,7 @@
                 </TabItem.Header>
 
                 <ListBox ItemsSource="{Binding ProfileForCustomer}" HorizontalContentAlignment="Stretch"
-                         Background="{StaticResource YourImageBrushKey}">
+                         Background="{StaticResource YourImageBrushKey}" Panel.ZIndex="0">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <Border>
@@ -245,9 +245,9 @@
                                         <Label Margin ="0,0,0,0" Content="{Binding Customer.name}"/>
                                         <Label Margin ="0,4,0,0" Content="{Binding Customer.middle_name}" />
                                         <Label Margin ="0,2,0,0" Content="{Binding Customer.e_mail}" />
-                                        <Label Margin ="0,0,0,0" Content="{Binding Customer.telephone_number}" />
-                                        <Label Margin ="0,0,0,0" Content="{Binding Customer.addess}" />
-                                        <Label Margin ="0,7,0,0" Content="{Binding Customer.login}" />
+                                        <Label Margin ="0,3,0,0" Content="{Binding Customer.telephone_number}" />
+                                        <Label Margin ="0,0,0,0" Content="{Binding Customer.address}" />
+                                        <Label Margin ="0,2,0,0" Content="{Binding Customer.login}" />
                                         <Label Margin ="0,2,0,0" Content="{Binding Customer.password }" />
                                     </StackPanel>
 
