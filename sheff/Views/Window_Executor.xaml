@@ -62,13 +62,15 @@
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
-                            <DataGridTemplateColumn Width="140">
+                            
+                            <!--<DataGridTemplateColumn Width="140">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <Button Content="Отказаться" Command="{Binding DataContext.RejectOrderCommand, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" CommandParameter="{Binding Path=Order.Id}"/>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
-                            </DataGridTemplateColumn>
+                            </DataGridTemplateColumn>-->
+                            
                         </DataGrid.Columns>
                     </DataGrid>
                 </Grid>

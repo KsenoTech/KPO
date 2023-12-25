@@ -8,7 +8,7 @@ namespace Interfaces.DTO
     public class OrderDTO
     {
         public int Id { get; set; }
-        public int executor_ID { get; set; }
+        public int? executor_ID { get; set; }
         public int client_ID { get; set; }
         public string description { get; set; }
         public DateTime time_order { get; set; }
@@ -29,7 +29,7 @@ namespace Interfaces.DTO
         public OrderDTO(Order order) 
         {
             Id = order.Id;
-            executor_ID = (int)order.executor_ID;
+            executor_ID = order.executor_ID;
             client_ID = order.client_ID;
             progress = order.progress;
             description = order.description;
@@ -38,7 +38,7 @@ namespace Interfaces.DTO
             feedback_ID = order.feedback_ID;
             IsItFinished = order.IsItFinished;
             canIdoIt = order.canIdoIt;
-            OrderPosition = OrderPosition;
+            OrderPosition = order.OrderPosition;
         }
     }
 

@@ -192,7 +192,6 @@ namespace sheff.ViewModels
                         else
                         {
                             //Model_PushOrderFOR.Clear();
-
                         }
 
                         //orderDTOs = _clientService.GetAllClients().Where(x => x.Id == _id).ToList();
@@ -203,12 +202,13 @@ namespace sheff.ViewModels
                         temp.description = DopDescription;
                         
                         _orderService.CreateOrderWithService(temp, DopDescription, TotalCostS, _id);
+                        //_orderService.CreateServiceWithService(DopDescription, TotalCostS, _id);
                         MessageBox.Show("Запись успешно добавлено в бд");
                         TotalCostS = 0;
                         DopDescription = "";
 
                         //_employeeService.UpdateEmployee(Model_PushOrderFOR);
-                        MessageBox.Show("Проблэма");
+                        //MessageBox.Show("Проблэма");
 
                 }
                 catch (Exception ex)

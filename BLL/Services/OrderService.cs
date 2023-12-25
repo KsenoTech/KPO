@@ -147,12 +147,25 @@ namespace BLL.Services
             return db.Orders.GetList().Where(order => order.OrderPosition == Position.Applied && order.client_ID == _id).Select(i => new OrderDTO(i)).ToList();
         }
 
-        public void UpdetePosition(OrderDTO p, Position position)
+        public void UpdetePosition(OrderDTO p, Position position, int _id)
         {
             Order order = db.Orders.GetItem(p.Id);
 
             if (order != null)
             {
+                order.executor_ID = _id;
+                order.OrderPosition = position;
+                db.Save();
+            }
+        }
+
+        public void UpdetePositionWithReject(OrderDTO p, Position position, int _id)
+        {
+            Order order = db.Orders.GetItem(p.Id);
+
+            if (order != null)
+            {
+                order.executor_ID = _id;
                 order.OrderPosition = position;
                 db.Save();
             }
@@ -164,6 +177,22 @@ namespace BLL.Services
         /// <param name="descript"></param>
         /// <param name="summ"></param>
         public void CreateOrderWithService (OrderDTO dTO, string descript, int summ, int _id)
+        {
+            Order order = new Order();
+            order.OrderPosition = Position.InProgress;
+            order.client_ID = _id;
+            //order.Feedback = 1;
+            order.IsItFinished = false;
+            order.canIdoIt = false;
+            order.progress = 0;
+            order.description = descript;
+            order.general_budget = summ;
+            order.time_order = DateTime.Now;
+            db.Orders.Create(order);
+            
+        }
+        
+        public void CreateServiceWithService( string descript, int summ, int _id)
         {
             Order order = new Order();
             order.OrderPosition = Position.InProgress;

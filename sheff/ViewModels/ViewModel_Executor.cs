@@ -203,7 +203,7 @@ namespace sheff.ViewModels
                 try
                 {
                     var temp = _orderService.GetOrder(id);
-                    _orderService.UpdetePosition(temp, Position.Applied);
+                    _orderService.UpdetePosition(temp, Position.Applied,_id);
                     MessageBox.Show("Заказ взят!");
                 }
                 catch (Exception ex)
@@ -226,7 +226,7 @@ namespace sheff.ViewModels
                 try
                 {
                     var temp = _orderService.GetOrder(id);
-                    _orderService.UpdetePosition(temp, Position.Rejected);
+                    _orderService.UpdetePositionWithReject(temp, Position.Rejected,_id);
                 }
                 catch (Exception ex)
                 {
@@ -247,7 +247,7 @@ namespace sheff.ViewModels
                 try
                 {
                     var temp = _orderService.GetOrder(id);
-                    _orderService.UpdetePosition(temp, Position.Finished);
+                    _orderService.UpdetePosition(temp, Position.Finished, _id);
                     MessageBox.Show("Молодец, продолжай в том же духе!");
                 }
                 catch (Exception ex)

@@ -28,7 +28,8 @@ namespace Services
         void CreateOrderWithService(OrderDTO dTO, string descript, int summ, int _id);
         OrderDTO GetOrder(int orderrId);
 
-        void UpdetePosition(OrderDTO p, Position position);
+        void UpdetePosition(OrderDTO p, Position position, int _id);
+        void UpdetePositionWithReject(OrderDTO p, Position position, int _id);
           //void CreateOrderr(OrderrDTO p);
           //void UpdateOrderr(OrderrDTO p);
          void DeleteOrder(int id);
